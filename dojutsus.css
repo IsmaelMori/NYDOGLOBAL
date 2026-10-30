@@ -1,0 +1,254 @@
+/* ==========================================================================
+   NYDo WIKI - HOJA DE ESTILOS PARA DOJUTSUS (GLASSMORPHISM STYLE)
+   ========================================================================== */
+
+:root {
+    --bg-dark: #07080d;
+    
+    /* Variables de Glassmorphism */
+    --glass-bg: rgba(18, 22, 36, 0.55);
+    --glass-bg-hover: rgba(28, 34, 56, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: blur(14px);
+    
+    /* Colores Temáticos Oculares */
+    --red-uchiha: #ff3b4b;
+    --red-glow: rgba(255, 59, 75, 0.4);
+    --blue-hyuga: #00d2ff;
+    --blue-glow: rgba(0, 210, 255, 0.4);
+    --purple-rinnegan: #b15eff;
+    --purple-glow: rgba(177, 94, 255, 0.45);
+    --gold-accent: #ffc107;
+
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(177, 94, 255, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 59, 75, 0.08) 0%, transparent 40%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+}
+
+/* TOPBAR CON EFECTO GLASS */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(9, 10, 15, 0.65) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.brand-symbol {
+    color: var(--red-uchiha);
+    font-size: 1.8rem;
+}
+
+/* HERO BANNER GLASS */
+.dojutsu-banner-custom {
+    position: relative;
+    min-height: 480px;
+    padding: 120px 30px 85px;
+    display: flex;
+    align-items: center;
+    isolation: isolate;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.dojutsu-banner-custom .banner-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+    filter: brightness(0.6);
+}
+
+.dojutsu-banner-custom .banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(7, 8, 13, 0.88) 0%,
+        rgba(7, 8, 13, 0.6) 50%,
+        rgba(7, 8, 13, 0.3) 100%
+    );
+    z-index: -1;
+}
+
+.jutsu-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: var(--glass-blur);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 1.5rem;
+}
+
+/* NAVEGACIÓN CATEGORÍAS EN GLASS */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0 3rem;
+}
+
+.category-nav a {
+    padding: 0.75rem 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--glass-shadow);
+}
+
+.category-nav a:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--purple-rinnegan);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px var(--purple-glow);
+}
+
+/* PANELES GENERALES GLASS */
+.jutsu-panel {
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.jutsu-panel:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* PANEL RINNEGAN ESPECÍFICO */
+.rinnegan-panel {
+    border: 1px solid rgba(177, 94, 255, 0.3);
+    background: radial-gradient(circle at top right, rgba(177, 94, 255, 0.12), transparent 60%), var(--glass-bg);
+}
+
+.rinnegan-panel:hover {
+    border-color: var(--purple-rinnegan);
+    box-shadow: 0 0 30px var(--purple-glow);
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.panel-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+}
+
+.silver-icon { color: var(--blue-hyuga); box-shadow: 0 0 15px var(--blue-glow); }
+.red-icon { color: var(--red-uchiha); box-shadow: 0 0 15px var(--red-glow); }
+.purple-icon { color: var(--purple-rinnegan); box-shadow: 0 0 15px var(--purple-glow); }
+
+/* TARJETAS GLASS PARA HABILIDADES */
+.feature-grid, .steps-grid, .rinnegan-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.info-card, .rinnegan-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover, .rinnegan-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-5px);
+    border-color: var(--purple-rinnegan);
+    box-shadow: 0 8px 25px rgba(177, 94, 255, 0.2);
+}
+
+.rinnegan-card h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.rinnegan-card h3 i {
+    color: var(--purple-rinnegan);
+}
+
+.rinnegan-card p {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .jutsu-panel { padding: 1.5rem; }
+    .category-nav { flex-direction: column; }
+}
