@@ -12,18 +12,127 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        /* DESCARGAS: ADAPTABLE A CELULAR */
-        .download-section {
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* =====================================================
+           DESCARGAS — LIQUID GLASS (estilo iOS, transparente)
+        ===================================================== */
+
+        /* Resplandores de fondo para que el cristal tenga qué desenfocar */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255,38,63,.28), transparent 32%),
+                radial-gradient(circle at 85% 35%, rgba(110,80,255,.22), transparent 34%),
+                radial-gradient(circle at 40% 85%, rgba(0,190,255,.14), transparent 36%);
         }
+
+        /* Las secciones de esta página son totalmente transparentes */
+        .download-section,
+        .install-section,
+        .pack-section {
+            background: transparent;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            box-shadow: none;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        .download-section { padding-top: 110px; }
+
+        /* Cristal líquido reutilizable */
+        .glass {
+            position: relative;
+            overflow: hidden;
+            border-radius: 26px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%, rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.20);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.28),
+                inset 0 1.5px 0 rgba(255,255,255,.45),
+                inset 0 -1px 0 rgba(255,255,255,.08),
+                inset 0 0 28px rgba(255,255,255,.04);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            backdrop-filter: blur(28px) saturate(190%);
+        }
+        /* Brillo especular */
+        .glass::after {
+            content: "";
+            position: absolute;
+            top: -60%;
+            left: -20%;
+            width: 70%;
+            height: 120%;
+            background: linear-gradient(115deg, rgba(255,255,255,.18), transparent 55%);
+            transform: rotate(8deg);
+            pointer-events: none;
+        }
+        .glass > * { position: relative; z-index: 1; }
+
+        /* Botones de cristal */
+        .glass-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 46px;
+            padding: 0 20px;
+            border-radius: 999px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255,38,63,.45), rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.28);
+            box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.4);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .glass-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255,38,63,.65), rgba(255,255,255,.14));
+            box-shadow: 0 12px 32px rgba(255,38,63,.28), inset 0 1px 0 rgba(255,255,255,.5);
+        }
+        .glass-btn.ghost {
+            background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+        }
+        .glass-btn.ghost:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.08));
+            box-shadow: 0 12px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.5);
+        }
+        .glass-btn.cf { border-color: rgba(241,100,54,.6); }
+        .glass-btn.cf i:first-child { color: #ff8a5c; }
+
+        /* Navegación rápida de la página */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 26px;
+        }
+        .quick-nav a {
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.18);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            transition: background .25s, transform .25s;
+        }
+        .quick-nav a:hover { background: rgba(255,255,255,.16); transform: translateY(-2px); }
+
+        /* ---------- Tarjetas de descarga ---------- */
         .download-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 420px));
+            grid-template-columns: repeat(2, minmax(0, 440px));
             justify-content: center;
-            gap: 20px;
+            gap: 22px;
         }
         .download-grid .wiki-card {
             display: flex;
@@ -31,57 +140,454 @@
             justify-content: space-between;
             gap: 18px;
             min-width: 0;
+            padding: 30px 26px;
+            border-radius: 26px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%, rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.20);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.28),
+                inset 0 1.5px 0 rgba(255,255,255,.45),
+                inset 0 0 28px rgba(255,255,255,.04);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            backdrop-filter: blur(28px) saturate(190%);
         }
         .download-grid .wiki-card h3,
-        .download-grid .wiki-card p {
-            overflow-wrap: anywhere;
+        .download-grid .wiki-card p { overflow-wrap: anywhere; }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 4px 0 16px;
         }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.2);
+        }
+        .badge i { color: var(--red-light); font-size: 11px; margin: 0; }
+        .badge.gold { background: rgba(255,190,60,.16); border-color: rgba(255,200,90,.45); }
+        .badge.gold i { color: #ffc65a; }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .feature-list li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .feature-list i { color: var(--red-light); margin-top: 3px; font-size: 12px; }
+
         .download-grid .explore-btn {
             width: 100%;
-            min-height: 46px;
+            min-height: 48px;
             font-size: 13px;
+            border-radius: 999px;
             justify-content: center;
-        }
-        .download-grid .explore-btn.secondary {
-            background: rgba(15, 20, 30, 0.7);
-        }
-        .download-grid .wiki-card:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-            justify-self: center;
-            width: 100%;
-            max-width: 420px;
         }
         .download-note {
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--white);
             font-size: 11px;
         }
 
-        /* Tablet: una columna centrada */
+        /* ---------- Instalación ---------- */
+        .steps {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            gap: 16px;
+        }
+        .step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 22px 24px;
+        }
+        .step-num {
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, rgba(255,38,63,.55), rgba(255,255,255,.1));
+            border: 1px solid rgba(255,255,255,.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 20px rgba(255,38,63,.25);
+        }
+        .step h3 { font-size: 17px; margin-bottom: 6px; }
+        .step p {
+            color: var(--muted);
+            font-size: 13.5px;
+            line-height: 1.7;
+        }
+        .step p + p { margin-top: 8px; }
+        .step code {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            color: #fff;
+            background: rgba(0,0,0,.35);
+            border: 1px solid rgba(255,255,255,.15);
+        }
+        .step .glass-btn { margin-top: 12px; min-height: 40px; }
+
+        /* ---------- Modpack ---------- */
+        .pack-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+        .pack-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 24px 22px;
+        }
+        .pack-card > div > i {
+            color: var(--red-light);
+            font-size: 26px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 0 9px rgba(255,38,63,.3));
+        }
+        .pack-card h3 { font-size: 17px; margin-bottom: 8px; }
+        .pack-card p { color: var(--muted); font-size: 12.5px; line-height: 1.65; }
+        .pack-card .glass-btn { width: 100%; }
+
+        .pack-all {
+            max-width: 1100px;
+            margin: 26px auto 0;
+            padding: 26px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pack-all h3 { font-size: 18px; margin-bottom: 6px; }
+        .pack-all p { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 560px; }
+        .pack-all .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+
+        /* =====================================================
+           NYDo ISM — TARJETA PREMIUM + CRÉDITOS
+        ===================================================== */
+        .download-grid .wiki-card.ism {
+            border: 1px solid rgba(255,255,255,.22);
+        }
+
+        /* Etiqueta discreta de comunidad */
+        .ism-ribbon {
+            position: absolute !important;
+            top: 18px;
+            right: 18px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: #fff;
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.22);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+        }
+        .ism-ribbon i { color: var(--red-light); font-size: 10px; margin: 0; }
+
+        /* Flujo: original -> versión Ism */
+        .ism-flow {
+            display: flex;
+            align-items: stretch;
+            gap: 10px;
+            margin: 4px 0 14px;
+        }
+        .ism-flow .node {
+            flex: 1 1 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.16);
+        }
+        .ism-flow .node small {
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .ism-flow .node strong {
+            font-size: 12px;
+            line-height: 1.3;
+            color: #fff;
+            overflow-wrap: anywhere;
+        }
+        .ism-flow .node.final {
+            background: linear-gradient(135deg, rgba(255,38,63,.22), rgba(255,255,255,.05));
+            border-color: rgba(255,255,255,.3);
+        }
+        .ism-flow .node.final small { color: var(--red-light); }
+        .ism-flow .arrow {
+            align-self: center;
+            color: var(--red-light);
+            font-size: 14px;
+        }
+
+        /* Panel de créditos */
+        .ism-credit {
+            margin: 0 0 16px;
+            padding: 16px 16px 14px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(88,101,242,.22), rgba(255,255,255,.04));
+            border: 1px solid rgba(130,142,255,.45);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 10px 28px rgba(60,70,200,.16);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+        }
+        .ism-credit-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #c9ceff;
+        }
+        .ism-credit-head i {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            margin: 0;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #fff;
+            background: #5865f2;
+            box-shadow: 0 6px 16px rgba(88,101,242,.5), inset 0 1px 0 rgba(255,255,255,.4);
+        }
+        .ism-credit p {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.65;
+            color: rgba(255,255,255,.88);
+        }
+        .ism-credit p + p { margin-top: 8px; }
+        .ism-author {
+            display: inline-block;
+            padding: 1px 9px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .02em;
+            color: #fff;
+            background: rgba(88,101,242,.45);
+            border: 1px solid rgba(160,170,255,.5);
+        }
+        .ism-credit .fixes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .ism-credit .fixes span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(60,200,120,.16);
+            border: 1px solid rgba(90,230,150,.4);
+        }
+        .ism-credit .fixes i { color: #5be39a; font-size: 10px; margin: 0; }
+
+        @media (max-width: 480px) {
+            .ism-flow { flex-direction: column; }
+            .ism-flow .arrow { transform: rotate(90deg); }
+            .ism-ribbon { position: static !important; align-self: flex-start; margin-bottom: 10px; }
+        }
+
+        /* Tablet */
         @media (max-width: 860px) {
-            .download-grid {
-                grid-template-columns: minmax(0, 520px);
-            }
+            .download-grid { grid-template-columns: minmax(0, 520px); }
         }
 
         /* Celular */
         @media (max-width: 480px) {
-            .download-section {
-                min-height: auto;
-                padding-top: 24px;
-                padding-bottom: 24px;
-            }
-            .download-grid {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 16px;
-            }
-            .download-grid .explore-btn {
-                min-height: 50px;   /* más fácil de tocar con el dedo */
-                font-size: 14px;
-            }
+            .download-section { padding-top: 90px; }
+            .download-section,
+            .install-section,
+            .pack-section { padding-left: 16px; padding-right: 16px; padding-bottom: 50px; }
+            .download-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+            .download-grid .explore-btn { min-height: 52px; font-size: 14px; }
+            .step { flex-direction: column; gap: 12px; padding: 18px; }
+            .pack-all { flex-direction: column; align-items: stretch; }
+            .pack-all .glass-btn { width: 100%; }
+        }
+
+        /* =====================================================
+           INTERACTIVIDAD
+        ===================================================== */
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 80px; }
+
+        /* Aparición al hacer scroll */
+        .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* Foco de luz que sigue al cursor + inclinación 3D */
+        .download-grid .wiki-card, .glass.pack-card, .glass.step, .glass.pack-all {
+            --mx: 50%; --my: 50%;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            will-change: transform;
+        }
+        .download-grid .wiki-card::before, .glass.pack-card::before {
+            content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            opacity: 0; transition: opacity .3s ease;
+            background: radial-gradient(260px circle at var(--mx) var(--my), rgba(255,255,255,.20), transparent 60%);
+        }
+        .download-grid .wiki-card:hover::before, .glass.pack-card:hover::before { opacity: 1; }
+        .download-grid .wiki-card { position: relative; overflow: hidden; }
+        .download-grid .wiki-card > * { position: relative; z-index: 1; }
+        .download-grid .wiki-card:hover, .glass.pack-card:hover { border-color: rgba(255,255,255,.38); }
+
+        /* Resalta la versión Ism */
+        .download-grid .wiki-card.ism { border-color: rgba(255,255,255,.20); }
+        .download-grid .wiki-card.ism:hover { box-shadow: 0 20px 60px rgba(255,38,63,.18), inset 0 1.5px 0 rgba(255,255,255,.45); }
+
+        /* Lista de características desplegable */
+        .feature-toggle {
+            display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 6px 14px;
+            border-radius: 999px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.07);
+            color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+            transition: background .2s;
+        }
+        .feature-toggle:hover { background: rgba(255,255,255,.16); }
+        .feature-toggle i { transition: transform .3s ease; font-size: 11px; }
+        .feature-toggle[aria-expanded="true"] i { transform: rotate(180deg); }
+        .feature-list.collapsible { max-height: 0; overflow: hidden; margin-bottom: 0; opacity: 0; transition: max-height .4s ease, opacity .3s ease, margin .3s ease; }
+        .feature-list.collapsible.open { max-height: 340px; opacity: 1; margin-bottom: 18px; }
+
+        /* Menú rápido: sección activa */
+        .quick-nav a.active { background: rgba(255,38,63,.35); border-color: rgba(255,255,255,.4); }
+
+        /* Barra de progreso de la instalación */
+        .progress-wrap { max-width: 900px; margin: 0 auto 22px; padding: 16px 22px; }
+        .progress-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+        .progress-bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
+        .progress-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #ff263f, #ffc65a); transition: width .5s ease; }
+        .progress-reset { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; font-family: inherit; text-decoration: underline; }
+
+        /* Pasos marcables */
+        .glass.step { cursor: pointer; }
+        .glass.step:hover { transform: translateX(6px); }
+        .glass.step .step-num { transition: background .3s, transform .3s; }
+        .glass.step.done { opacity: .7; border-color: rgba(80,220,140,.5); }
+        .glass.step.done .step-num {
+            background: linear-gradient(135deg, rgba(60,200,120,.7), rgba(255,255,255,.1));
+            transform: scale(1.08);
+        }
+        .glass.step.done h3 { text-decoration: line-through; text-decoration-color: rgba(255,255,255,.4); }
+        .step-hint { text-align: center; color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+
+        /* Código copiable */
+        .step code.copyable, .pack-all code.copyable { cursor: copy; transition: background .2s, border-color .2s; }
+        .step code.copyable:hover, .pack-all code.copyable:hover { background: rgba(255,38,63,.3); border-color: rgba(255,255,255,.4); }
+        .step code.copyable::after { content: "\f0c5"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 10px; margin-left: 8px; opacity: .6; }
+
+        /* Notificación flotante */
+        .nydo-toast {
+            position: fixed; left: 50%; bottom: 28px; z-index: 9999;
+            transform: translate(-50%, 30px); opacity: 0; pointer-events: none;
+            display: flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px;
+            color: #fff; font-size: 13px; font-weight: 700; max-width: calc(100vw - 32px);
+            background: rgba(20,22,34,.82); border: 1px solid rgba(255,255,255,.25);
+            -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+            box-shadow: 0 12px 40px rgba(0,0,0,.45);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+        .nydo-toast.show { opacity: 1; transform: translate(-50%, 0); }
+        .nydo-toast i { color: #5be39a; }
+
+        /* Efecto onda en botones */
+        .glass-btn, .explore-btn { position: relative; overflow: hidden; }
+        .ripple {
+            position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
+            background: rgba(255,255,255,.4); animation: ripple .6s ease-out forwards;
+        }
+        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+        /* Volver arriba */
+        .to-top {
+            position: fixed; right: 20px; bottom: 24px; z-index: 900; width: 46px; height: 46px;
+            display: grid; place-items: center; border-radius: 50%; color: #fff; cursor: pointer;
+            background: linear-gradient(135deg, rgba(255,38,63,.55), rgba(255,255,255,.1));
+            border: 1px solid rgba(255,255,255,.3); box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+            opacity: 0; transform: translateY(20px); pointer-events: none; transition: all .3s ease;
+        }
+        .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+        .to-top:hover { transform: translateY(-4px); }
+
+        /* Fecha de última actualización */
+        .update-line {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+            margin: 0 0 14px; font-size: 12px; font-weight: 600; color: var(--muted);
+        }
+        .update-line i { color: #5be39a; }
+        .update-line .rel { color: #fff; font-weight: 700; }
+        .update-line.loading { opacity: .6; }
+        .update-line.loading i { animation: spin 1s linear infinite; }
+        .update-line.unknown i { color: var(--muted); }
+        .badge.new { background: rgba(60,200,120,.18); border-color: rgba(90,230,150,.5); animation: pulseNew 2s ease-in-out infinite; }
+        .badge.new i { color: #5be39a; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulseNew { 50% { box-shadow: 0 0 14px rgba(90,230,150,.45); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .ripple { display: none; }
+        }
+        @media (hover: none) {
+            .glass.step:hover { transform: none; }
         }
     </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 
@@ -111,22 +617,39 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <!-- SECCIÓN DE DESCARGAS -->
+
+        <!-- ============ DESCARGAS ============ -->
         <section class="content-section download-section" id="descargas">
             <div class="section-heading">
                 <span class="eyebrow">CENTRO DE DESCARGAS</span>
                 <h2>Obtén NYDo Mod</h2>
-                <p>Selecciona la versión compatible con tu cliente de Minecraft y comienza tu aventura ninja.</p>
+                <p>Elige la versión que prefieras, instálala siguiendo la guía y descarga el modpack completo.</p>
+
+                <nav class="quick-nav" aria-label="Secciones de la página">
+                    <a href="#descargas"><i class="fa-solid fa-download"></i> Descargas</a>
+                    <a href="#instalar"><i class="fa-solid fa-screwdriver-wrench"></i> Cómo instalar</a>
+                    <a href="#modpack"><i class="fa-solid fa-cubes"></i> Modpack completo</a>
+                </nav>
             </div>
 
             <div class="wiki-grid download-grid">
-                
-                <!-- VERSIÓN 5.6 (Última versión) -->
-                <div class="wiki-card">
+
+                <!-- NYDO 5.6 -->
+                <div class="wiki-card" data-fecha="">
                     <div>
                         <i class="fa-solid fa-file-arrow-down"></i>
                         <h3>NYDo Mod - Versión 5.6</h3>
-                        <p>Última actualización con mejoras de rendimiento, nuevos jutsus corregidos, corrección de errores de texturas y balance general de estadísticas.</p>
+                        <div class="badge-row">
+                            <span class="badge"><i class="fa-solid fa-circle-check"></i> Última versión</span>
+                            <span class="badge"><i class="fa-solid fa-hammer"></i> Forge 1.20.1</span>
+                        </div>
+                        <p>La versión oficial del mod, pensada para vivir la progresión completa de un ninja desde cero.</p>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-bolt"></i> Mejoras de rendimiento</li>
+                            <li><i class="fa-solid fa-bolt"></i> Nuevos jutsus y correcciones</li>
+                            <li><i class="fa-solid fa-bolt"></i> Texturas corregidas</li>
+                            <li><i class="fa-solid fa-bolt"></i> Balance general de estadísticas</li>
+                        </ul>
                     </div>
                     <div>
                         <span class="download-note">Recomendado para Minecraft Forge</span>
@@ -138,26 +661,209 @@
                     </div>
                 </div>
 
-                <!-- VERSIÓN 5.5 -->
-                
-
-                <!-- NYDO 18 MEJORADO -->
-                <div class="wiki-card">
+                <!-- NYDO ISM -->
+                <div class="wiki-card ism" data-fecha="">
+                    <span class="ism-ribbon"><i class="fa-solid fa-users"></i> Versión de la comunidad</span>
                     <div>
                         <i class="fa-solid fa-star"></i>
-                        <h3>NYDO 18 Mejorado</h3>
-                        <p>Versión mejorada de NYDo 18 con ajustes y mejoras adicionales sobre la build original.</p>
+                        <h3>NYDo Ism</h3>
+                        <div class="badge-row">
+                            <span class="badge"><i class="fa-solid fa-gift"></i> Gratis</span>
+                            <span class="badge"><i class="fa-solid fa-lock-open"></i> Todo desbloqueado</span>
+                            <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Todos los modos</span>
+                            <span class="badge"><i class="fa-solid fa-bug-slash"></i> Sin bugs</span>
+                        </div>
+                        <p>Versión corregida y gratuita con todo el contenido disponible desde el primer minuto, ideal si quieres probar el mod sin límites y con una experiencia estable.</p>
+
+                        <div class="ism-flow" aria-label="Origen de la versión">
+                            <div class="node">
+                                <small>Versión original</small>
+                                <strong>BOLSONARO HIPOTETICO</strong>
+                            </div>
+                            <i class="fa-solid fa-arrow-right arrow" aria-hidden="true"></i>
+                            <div class="node final">
+                                <small>Versión Ism</small>
+                                <strong>Corregida y estable</strong>
+                            </div>
+                        </div>
+
+                        <div class="ism-credit">
+                            <div class="ism-credit-head"><i class="fa-brands fa-discord"></i><span>Créditos de la versión</span></div>
+                            <p>Versión corregida del mod original creado por un brasileño de Discord llamado <strong class="ism-author">BOLSONARO HIPOTETICO</strong>.</p>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-bolt"></i> Todos los jutsus y habilidades desbloqueados</li>
+                            <li><i class="fa-solid fa-bolt"></i> Todos los modos disponibles, incluido el Modo Sabio</li>
+                            <li><i class="fa-solid fa-bolt"></i> Errores del mod original corregidos para que funcione sin fallos</li>
+                            <li><i class="fa-solid fa-bolt"></i> Ajustes y correcciones sobre la build original</li>
+                        </ul>
                     </div>
                     <div>
-                        <span class="download-note">Versión Mejorada</span>
-                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NydoMod-R18-Otimizado.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDO 18 Mejorado">
+                        <span class="download-note">Gratis · Todo desbloqueado · Sin bugs</span>
+                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R1sm4_Uzumaki_Yin_Cadenas_FIX2.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDo Ism">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
-                            <span>Descargar NYDO 18 Mejorado</span>
+                            <span>Descargar NYDo Ism</span>
                             <i class="fa-solid fa-download"></i>
                         </a>
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- ============ CÓMO INSTALAR ============ -->
+        <section class="content-section install-section" id="instalar">
+            <div class="section-heading">
+                <span class="eyebrow">GUÍA PASO A PASO</span>
+                <h2>Cómo instalar el mod</h2>
+                <p>Sigue estos pasos en orden y estarás jugando en pocos minutos.</p>
+            </div>
+
+            <div class="glass progress-wrap" id="installProgress">
+                <div class="progress-top">
+                    <span><i class="fa-solid fa-list-check"></i> Tu progreso: <span id="progressText">0 de 5 pasos</span></span>
+                    <button type="button" class="progress-reset" id="progressReset">Reiniciar</button>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+            <p class="step-hint"><i class="fa-regular fa-hand-pointer"></i> Toca un paso para marcarlo como hecho</p>
+
+            <div class="steps">
+
+                <div class="glass step">
+                    <div class="step-num">1</div>
+                    <div>
+                        <h3>Instala Minecraft Forge 1.20.1</h3>
+                        <p>Descarga e instala <strong>Forge para la versión 1.20.1</strong>. Abre el instalador, elige <em>Install client</em> y espera a que termine.</p>
+                        <a class="glass-btn ghost" href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-hammer"></i> Descargar Forge 1.20.1
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">2</div>
+                    <div>
+                        <h3>Abre la carpeta de Minecraft</h3>
+                        <p>Presiona <code>Windows + R</code>, escribe <code>%appdata%</code> y presiona Enter.</p>
+                        <p>Entra a la carpeta <code>.minecraft</code>.</p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">3</div>
+                    <div>
+                        <h3>Entra a la carpeta mods</h3>
+                        <p>Abre la carpeta <code>mods</code>. Si no existe, créala con ese nombre exacto (en minúsculas). Debes ver esta ruta: <code>%appdata%\.minecraft\mods</code></p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">4</div>
+                    <div>
+                        <h3>Coloca los mods necesarios</h3>
+                        <p>Copia estos archivos <strong>.jar</strong> dentro de la carpeta <code>mods</code>:</p>
+                        <p>
+                            <code>bendy-lib</code>
+                            <code>geckolib</code>
+                            <code>player-animation</code>
+                            <code>terrablender</code>
+                            <code>NYDO (cualquier versión)</code>
+                        </p>
+                        <p>Todos los enlaces de descarga están en la sección <a href="#modpack" style="color: var(--red-light); font-weight:700;">Modpack completo</a>.</p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">5</div>
+                    <div>
+                        <h3>Abre el juego y a jugar</h3>
+                        <p>Abre el launcher de Minecraft, selecciona el perfil <strong>Forge 1.20.1</strong> y presiona Jugar.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ MODPACK COMPLETO ============ -->
+        <section class="content-section pack-section" id="modpack">
+            <div class="section-heading">
+                <span class="eyebrow">MODPACK COMPLETO</span>
+                <h2>Todo lo que necesitas</h2>
+                <p>Descarga los 5 mods del pack. Las librerías te llevan a CurseForge; asegúrate de elegir la versión <strong>1.20.1 · Forge</strong>.</p>
+            </div>
+
+            <div class="pack-grid">
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-person-walking"></i>
+                        <h3>Bendy-lib</h3>
+                        <p>Librería que permite doblar y animar partes del cuerpo del jugador.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/bendy-lib/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-dragon"></i>
+                        <h3>GeckoLib</h3>
+                        <p>Motor de animaciones y modelos 3D que usan las entidades y jutsus del mod.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/geckolib/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-person-running"></i>
+                        <h3>Player Animation</h3>
+                        <p>Librería de animaciones del jugador, necesaria para las poses y sellos de manos.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/playeranimator/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        <h3>TerraBlender</h3>
+                        <p>Librería de generación de biomas y mundo requerida por el mod.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/terrablender/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <h3>NYDo (cualquier versión)</h3>
+                        <p>El mod principal. Elige la v5.6 o la versión Ism con todo desbloqueado.</p>
+                    </div>
+                    <a class="glass-btn" href="#descargas">
+                        <i class="fa-solid fa-download"></i> Ir a las descargas
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="glass pack-all">
+                <div>
+                    <h3><i class="fa-solid fa-cubes" style="color: var(--red-light); margin-right: 8px;"></i>Pack completo en 5 archivos</h3>
+                    <p>Descarga las 4 librerías y NYDo, colócalas en <code style="font-family:Consolas,monospace;">%appdata%\.minecraft\mods</code> y listo.</p>
+                </div>
+                <div class="actions">
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/bendy-lib/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> Bendy-lib</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/geckolib/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> GeckoLib</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/playeranimator/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> Player Anim.</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/terrablender/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> TerraBlender</a>
+                </div>
             </div>
         </section>
 
@@ -170,5 +876,264 @@
 
     <!-- Script para el funcionamiento del menú lateral (sidebar) -->
     <script src="script.js"></script>
+    <script src="translate.js"></script>
+<script src="mobile-nav.js"></script>
+
+<script>
+(() => {
+    "use strict";
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+    /* ---------- Notificación ---------- */
+    const toast = document.createElement("div");
+    toast.className = "nydo-toast";
+    toast.setAttribute("role", "status");
+    document.body.appendChild(toast);
+    let toastTimer;
+    function showToast(msg, icon = "fa-circle-check") {
+        toast.innerHTML = '<i class="fa-solid ' + icon + '"></i><span></span>';
+        toast.lastChild.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    /* ---------- Aparición al hacer scroll ---------- */
+    const revealEls = $$(".section-heading, .download-grid .wiki-card, .progress-wrap, .step, .pack-card, .pack-all");
+    revealEls.forEach((el, i) => {
+        el.classList.add("reveal");
+        el.style.transitionDelay = (i % 4) * 70 + "ms";
+    });
+    if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add("visible"));
+    }
+
+    /* ---------- Foco de luz + inclinación 3D (solo con ratón) ---------- */
+    if (window.matchMedia("(hover: hover)").matches) {
+        $$(".download-grid .wiki-card, .glass.pack-card").forEach(card => {
+            card.addEventListener("mousemove", e => {
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left, y = e.clientY - r.top;
+                card.style.setProperty("--mx", x + "px");
+                card.style.setProperty("--my", y + "px");
+                const rx = ((y / r.height) - 0.5) * -6;
+                const ry = ((x / r.width) - 0.5) * 6;
+                card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-4px)";
+            });
+            card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+        });
+    }
+
+    /* ---------- Lista de características desplegable ---------- */
+    $$(".download-grid .feature-list").forEach(list => {
+        list.classList.add("collapsible", "open");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "feature-toggle";
+        btn.setAttribute("aria-expanded", "true");
+        btn.innerHTML = '<span>Novedades</span><i class="fa-solid fa-chevron-down"></i>';
+        list.parentNode.insertBefore(btn, list);
+        btn.addEventListener("click", () => {
+            const open = list.classList.toggle("open");
+            btn.setAttribute("aria-expanded", open);
+        });
+    });
+
+    /* ---------- Menú rápido: sección activa ---------- */
+    const navLinks = $$(".quick-nav a");
+    const sections = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
+    if ("IntersectionObserver" in window && sections.length) {
+        const so = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+                }
+            });
+        }, { rootMargin: "-40% 0px -55% 0px" });
+        sections.forEach(s => so.observe(s));
+    }
+
+    /* ---------- Pasos de instalación con progreso guardado ---------- */
+    const steps = $$(".glass.step");
+    const KEY = "nydo-install-steps";
+    const fill = $("#progressFill"), text = $("#progressText");
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+
+    function updateProgress(announce) {
+        const done = steps.filter(s => s.classList.contains("done")).length;
+        fill.style.width = (done / steps.length * 100) + "%";
+        text.textContent = done + " de " + steps.length + " pasos";
+        try { localStorage.setItem(KEY, JSON.stringify(steps.map((s, i) => s.classList.contains("done") ? i : -1).filter(i => i >= 0))); } catch (e) {}
+        if (announce && done === steps.length) showToast("¡Todo listo! Abre Minecraft y a jugar 🥷");
+    }
+    steps.forEach((step, i) => {
+        step.tabIndex = 0;
+        step.setAttribute("role", "checkbox");
+        if (saved.includes(i)) step.classList.add("done");
+        step.setAttribute("aria-checked", step.classList.contains("done"));
+        const toggle = () => {
+            step.classList.toggle("done");
+            step.setAttribute("aria-checked", step.classList.contains("done"));
+            updateProgress(true);
+        };
+        step.addEventListener("click", e => {
+            if (e.target.closest("a, code")) return; /* no marcar al pulsar enlaces o copiar */
+            toggle();
+        });
+        step.addEventListener("keydown", e => {
+            if ((e.key === "Enter" || e.key === " ") && e.target === step) { e.preventDefault(); toggle(); }
+        });
+    });
+    $("#progressReset").addEventListener("click", () => {
+        steps.forEach(s => { s.classList.remove("done"); s.setAttribute("aria-checked", "false"); });
+        updateProgress(false);
+        showToast("Progreso reiniciado", "fa-rotate-left");
+    });
+    updateProgress(false);
+
+    /* ---------- Clic para copiar rutas ---------- */
+    $$(".step code, .pack-all code").forEach(code => {
+        const t = code.textContent.trim();
+        if (!/%|^\./.test(t)) return;
+        code.classList.add("copyable");
+        code.title = "Clic para copiar";
+        code.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(t);
+                showToast("Copiado: " + t, "fa-copy");
+            } catch (e) {
+                showToast("No se pudo copiar, hazlo manualmente", "fa-triangle-exclamation");
+            }
+        });
+    });
+
+    /* ---------- Aviso al descargar ---------- */
+    $$(".download-grid .explore-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const nombre = btn.getAttribute("aria-label") || "el mod";
+            showToast(nombre.replace("Descargar", "Descargando") + "…", "fa-download");
+            setTimeout(() => { if ($("#instalar")) showToast("Siguiente: sigue la guía de instalación", "fa-arrow-down"); }, 3000);
+        });
+    });
+
+    /* ---------- Efecto onda en botones ---------- */
+    document.addEventListener("pointerdown", e => {
+        const b = e.target.closest(".glass-btn, .explore-btn");
+        if (!b) return;
+        const r = b.getBoundingClientRect(), size = Math.max(r.width, r.height);
+        const span = document.createElement("span");
+        span.className = "ripple";
+        span.style.cssText = "width:" + size + "px;height:" + size + "px;left:" + (e.clientX - r.left - size / 2) + "px;top:" + (e.clientY - r.top - size / 2) + "px";
+        b.appendChild(span);
+        setTimeout(() => span.remove(), 650);
+    });
+
+
+    /* ---------- Última actualización (leída desde GitHub Releases) ---------- */
+    (function fechasDeActualizacion() {
+        const REPO = "IsmaelMori/NYDO";
+        const CACHE_KEY = "nydo-releases-cache";
+        const CACHE_MS = 60 * 60 * 1000; /* 1 hora, para no agotar el límite de la API */
+        const meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+
+        const tarjetas = $$(".download-grid .wiki-card").map(card => {
+            const a = $("a.explore-btn", card);
+            if (!a) return null;
+            const partes = new URL(a.href).pathname.split("/");
+            const linea = document.createElement("div");
+            linea.className = "update-line loading";
+            linea.innerHTML = '<i class="fa-solid fa-spinner"></i><span>Consultando última actualización…</span>';
+            const badges = $(".badge-row", card);
+            badges.parentNode.insertBefore(linea, badges.nextSibling);
+            return { card, linea, badges, archivo: decodeURIComponent(partes.pop()), tag: decodeURIComponent(partes.pop()) };
+        }).filter(Boolean);
+
+        function formatear(fecha) {
+            const dias = Math.floor((Date.now() - fecha.getTime()) / 86400000);
+            let rel;
+            if (dias <= 0) rel = "hoy";
+            else if (dias === 1) rel = "ayer";
+            else if (dias < 30) rel = "hace " + dias + " días";
+            else if (dias < 365) { const m = Math.floor(dias / 30); rel = "hace " + m + (m === 1 ? " mes" : " meses"); }
+            else { const y = Math.floor(dias / 365); rel = "hace " + y + (y === 1 ? " año" : " años"); }
+            const abs = fecha.getDate() + " " + meses[fecha.getMonth()] + " " + fecha.getFullYear();
+            return { rel, abs, dias };
+        }
+
+        function pintar(t, fecha) {
+            const f = formatear(fecha);
+            t.linea.className = "update-line";
+            t.linea.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i><span>Última actualización:</span><span class="rel"></span><span></span>';
+            t.linea.children[2].textContent = f.rel;
+            t.linea.children[3].textContent = "· " + f.abs;
+            t.linea.title = fecha.toLocaleString("es");
+            if (f.dias <= 14 && !$(".badge.new", t.badges)) {
+                const b = document.createElement("span");
+                b.className = "badge new";
+                b.innerHTML = '<i class="fa-solid fa-sparkles"></i> Reciente';
+                t.badges.prepend(b);
+            }
+        }
+
+        function sinDatos(t) {
+            /* Si GitHub no responde, usa la fecha manual data-fecha="AAAA-MM-DD" si existe */
+            const manual = t.card.dataset.fecha;
+            const d = manual ? new Date(manual + "T12:00:00") : null;
+            if (d && !isNaN(d)) return pintar(t, d);
+            t.linea.className = "update-line unknown";
+            t.linea.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i><span>Fecha de actualización no disponible</span>';
+        }
+
+        function aplicar(releases) {
+            tarjetas.forEach(t => {
+                const rel = releases.find(r => r.tag_name === t.tag) ||
+                            releases.find(r => (r.assets || []).some(a => a.name === t.archivo));
+                if (!rel) return sinDatos(t);
+                const asset = (rel.assets || []).find(a => a.name === t.archivo);
+                const iso = (asset && asset.updated_at) || rel.published_at || rel.created_at;
+                const fecha = iso ? new Date(iso) : null;
+                fecha && !isNaN(fecha) ? pintar(t, fecha) : sinDatos(t);
+            });
+        }
+
+        async function cargar() {
+            try {
+                const c = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+                if (c && Date.now() - c.t < CACHE_MS) return aplicar(c.d);
+            } catch (e) {}
+            try {
+                const r = await fetch("https://api.github.com/repos/" + REPO + "/releases?per_page=30",
+                                      { headers: { Accept: "application/vnd.github+json" } });
+                if (!r.ok) throw new Error(r.status);
+                const datos = await r.json();
+                try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), d: datos })); } catch (e) {}
+                aplicar(datos);
+            } catch (e) {
+                tarjetas.forEach(sinDatos);
+            }
+        }
+        cargar();
+    })();
+
+    /* ---------- Volver arriba ---------- */
+    const top = document.createElement("button");
+    top.className = "to-top";
+    top.type = "button";
+    top.setAttribute("aria-label", "Volver arriba");
+    top.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+    document.body.appendChild(top);
+    top.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    window.addEventListener("scroll", () => top.classList.toggle("show", window.scrollY > 500), { passive: true });
+})();
+</script>
 </body>
 </html>

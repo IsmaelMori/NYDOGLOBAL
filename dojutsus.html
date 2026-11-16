@@ -41,54 +41,26 @@
             padding: 0;
         }
 
-        .topbar { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            padding: 10px 20px; 
-            background: rgba(9, 10, 15, 0.85) !important; 
-            border-bottom: 1px solid var(--glass-border); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            backdrop-filter: var(--glass-blur); 
-            -webkit-backdrop-filter: var(--glass-blur);
-        }
+        .nydo-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background: rgba(8, 11, 18, 0.75) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 9, 32, 0.3);
+    /* quita position: sticky, top y z-index de aquí */
+}
 
         /* Banner independiente */
-        .dojutsu-banner-custom {
-            position: relative;
-            min-height: 480px;
-            padding: 120px 30px 85px;
-            display: flex;
-            align-items: center;
-            isolation: isolate;
-            overflow: hidden;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .dojutsu-banner-custom .banner-bg-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            z-index: -2;
-            filter: brightness(0.55);
-        }
-
-        .dojutsu-banner-custom .banner-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                90deg,
-                rgba(7, 8, 13, 0.92) 0%,
-                rgba(7, 8, 13, 0.65) 45%,
-                rgba(7, 8, 13, 0.3) 100%
-            );
-            z-index: -1;
-        }
+        /* banner: ver dojutsus.css */
 
         /* Paneles Glassmorphism */
         .jutsu-panel {
@@ -354,6 +326,29 @@
             background: rgba(255, 255, 255, 0.1);
             color: #cbd5e1;
         }
+
+        /* VIDEO DEL SUSANOO (usa el color del ninja seleccionado) */
+        .susanoo-video-box {
+            margin-top: 20px;
+            padding: 14px;
+            background: rgba(0, 0, 0, .35);
+            border: 1px solid var(--susanoo-color, #9351e8);
+            border-radius: 14px;
+            box-shadow: 0 0 20px var(--susanoo-glow, rgba(147, 81, 232, 0.3));
+        }
+        .susanoo-video-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .susanoo-video-title i { color: var(--susanoo-color, #9351e8); }
+        .susanoo-video-box .bya-video { max-width: 920px; }
 
         /* HABILIDADES DEL BYAKUGAN CON VIDEO (64 Palmas y Rotación) */
         .byakugan-ability-box[data-bya] {
@@ -903,100 +898,310 @@
             border-bottom: 1px solid var(--glass-border);
         }
 
-        #guiaNube {
-            position: absolute;
-            z-index: 99999;
-            width: 290px;
-            max-width: calc(100vw - 30px);
-            pointer-events: none;
-            transition: top .35s ease, left .35s ease;
+        /* ===== RINNEGAN · LIQUID GLASS (morado + carmesí del banner) ===== */
+        .kbd-combo { display: inline-flex; align-items: center; gap: 4px; color: #94a3b8; font-weight: 800; flex-shrink: 0; }
+
+        #rinnegan.rinnegan-panel {
+            --rn-purple: #b15eff;
+            --rn-crimson: #e11d48;
+            --rn-grad: linear-gradient(135deg, #b15eff 0%, #e11d48 100%);
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            /* fondo: rojo con remolinos SOLO en la zona del banner, el resto negro con toques de morado oscuro */
+            --rn-red: calc(48px + clamp(170px, 31vw, 360px) + 30px);
+            background-color: #08040f;
+            background-image:
+                url("img/rinnegan_swirl.webp"),
+                radial-gradient(60% 480px at 88% 1150px, rgba(88, 28, 168, 0.34), transparent 70%),
+                radial-gradient(55% 520px at 8% 1900px, rgba(70, 20, 140, 0.30), transparent 70%),
+                radial-gradient(60% 520px at 92% 2700px, rgba(80, 24, 150, 0.28), transparent 70%),
+                radial-gradient(70% 500px at 15% 3500px, rgba(70, 20, 140, 0.26), transparent 70%),
+                linear-gradient(180deg, #a8062a 0, #a8062a var(--rn-red), #14060f calc(var(--rn-red) + 150px), #09040f calc(var(--rn-red) + 420px), #08040f 100%);
+            background-size: 1000px 1000px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+            background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+            background-position: top left;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow:
+                0 22px 60px rgba(120, 40, 200, 0.28),
+                0 0 0 1px rgba(177, 94, 255, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.28),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+                inset 0 0 50px rgba(177, 94, 255, 0.07);
+        }
+        #rinnegan.rinnegan-panel:hover {
+            border-color: rgba(205, 150, 255, 0.5);
+            box-shadow:
+                0 26px 70px rgba(150, 50, 230, 0.34),
+                0 0 0 1px rgba(225, 29, 72, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.32),
+                inset 0 0 50px rgba(177, 94, 255, 0.09);
+        }
+        /* remolinos de tinta en morado oscuro, apenas visibles, solo debajo de la zona roja */
+        #rinnegan::before {
+            content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+            background: #8b4be0; opacity: 0.2;
+            -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--rn-red) + 60px), #000 calc(var(--rn-red) + 500px)), url("img/rinnegan_swirl.webp");
+            -webkit-mask-size: 100% 100%, 1000px 1000px;
+            -webkit-mask-repeat: no-repeat, repeat;
+            -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to bottom, transparent calc(var(--rn-red) + 60px), #000 calc(var(--rn-red) + 500px)), url("img/rinnegan_swirl.webp");
+            mask-size: 100% 100%, 1000px 1000px;
+            mask-repeat: no-repeat, repeat;
+            mask-composite: intersect;
         }
 
-        #guiaMensaje {
+        /* componente base: cristal líquido */
+        #rinnegan .lq {
             position: relative;
-            padding: 20px;
-            color: #fff;
-            background: rgba(15, 23, 42, .91);
-            border: 1px solid rgba(231, 182, 109, .8);
             border-radius: 22px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
-            backdrop-filter: blur(7px);
-            pointer-events: auto;
-            animation: guiaEntrada .3s ease;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04) 45%, rgba(177, 94, 255, 0.09));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(18px) saturate(170%);
+            -webkit-backdrop-filter: blur(18px) saturate(170%);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                inset 0 -12px 26px rgba(177, 94, 255, 0.08);
+        }
+        #rinnegan .lq::before {
+            content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 38%);
+            opacity: 0.7;
+        }
+        #rinnegan .lq > * { position: relative; }
+
+        #rinnegan .panel-heading h2 {
+            background: linear-gradient(90deg, #ffffff, #f6ecff 60%, #ffe1ea);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(25, 0, 12, 0.55));
+        }
+        #rinnegan .panel-number { color: #ffe1e8 !important; text-shadow: 0 1px 8px rgba(25, 0, 12, 0.6); }
+        #rinnegan .panel-heading p { color: #fff0f4; text-shadow: 0 1px 10px rgba(25, 0, 12, 0.6); }
+        #rinnegan .panel-icon.purple-icon {
+            background: linear-gradient(145deg, rgba(177, 94, 255, 0.3), rgba(225, 29, 72, 0.22));
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 22px rgba(177, 94, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        #rinnegan .panel-description { color: #fff0f4; text-shadow: 0 1px 10px rgba(25, 0, 12, 0.6); }
+
+        .rn-sub {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin: 2.2rem 0 1rem; color: #fff; font-size: 1.15rem; font-weight: 800;
+        }
+        .rn-sub i {
+            background: var(--rn-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: drop-shadow(0 0 8px rgba(177, 94, 255, 0.6));
+        }
+        .rn-sub::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent); }
+        .rn-lead { color: #f6ecff; font-size: 0.95rem; line-height: 1.65; margin: 0 0 0.4rem; text-shadow: 0 1px 10px rgba(20, 0, 20, 0.55); }
+
+        /* banner fundido con el fondo (sin marco) */
+        .rinnegan-banner {
+            position: relative; width: 100%;
+            height: clamp(170px, 31vw, 360px);
+            margin-bottom: 1.2rem;
+        }
+        .rinnegan-banner img {
+            width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block;
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 10%, #000 62%, transparent 100%);
+            -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 10%, #000 62%, transparent 100%);
+            mask-composite: intersect;
+        }
+        .rinnegan-banner-label {
+            position: absolute; left: 1rem; bottom: 1rem; z-index: 2; max-width: calc(100% - 2rem);
+            padding: 0.45rem 0.95rem; border-radius: 999px;
+            color: #f5ecff; font-weight: 800; letter-spacing: 1.5px; font-size: 0.72rem;
+            background: rgba(22, 8, 40, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        .rinnegan-banner-label i { color: #ff6b8a; margin-right: 6px; }
+
+        /* sección de ojos */
+        .rn-eyes {
+            display: grid; grid-template-columns: 1fr minmax(260px, 340px);
+            gap: 1.5rem; align-items: center; padding: 1.6rem 1.8rem; margin: 1.6rem 0 0.5rem;
+        }
+        .rn-kicker { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; color: #ff8fa8; }
+        .rn-eyes h3 { margin: 0.5rem 0; color: #fff; font-size: 1.35rem; }
+        .rn-eyes p { margin: 0; color: #d6cbe8; font-size: 0.93rem; line-height: 1.65; }
+        .rn-eyes-host { display: flex; justify-content: center; min-height: 140px; align-items: center; }
+
+        /* métodos de obtención */
+        .rn-note {
+            margin: 0 0 1.1rem; padding: 0.9rem 1.1rem; color: #f1e9fb; font-size: 0.93rem;
+            border-radius: 14px; background: linear-gradient(90deg, rgba(177, 94, 255, 0.18), rgba(225, 29, 72, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.14); border-left: 4px solid #b15eff;
+        }
+        .rn-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .rn-method { padding: 1.3rem 1.3rem 1.4rem; }
+        .rn-tag {
+            display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.6rem;
+            font-size: 0.68rem; font-weight: 800; letter-spacing: 1.5px; color: #fff;
+            background: var(--rn-grad); box-shadow: 0 4px 14px rgba(177, 94, 255, 0.45);
+        }
+        .rn-method h3 { margin: 0 0 0.5rem; color: #fff; font-size: 1.05rem; line-height: 1.35; }
+        .rn-method h3 i { color: #d8b4fe; margin-right: 6px; }
+        .rn-method p { margin: 0 0 0.9rem; color: #d6cbe8; font-size: 0.9rem; line-height: 1.6; }
+        .rn-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .rn-chip {
+            display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.8rem; border-radius: 999px;
+            font-size: 0.8rem; font-weight: 700; color: #fff;
+            background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        .rn-chip i { color: #ff7a96; }
+
+        /* demostración */
+        .rn-demo { padding: 1.1rem; }
+        .rn-demo-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+        .rn-demo-title { color: #fff; font-weight: 800; font-size: 1.02rem; line-height: 1.3; }
+        .rn-switch {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.95rem; border-radius: 999px; cursor: pointer;
+            font: 800 0.75rem/1 inherit; letter-spacing: 1px; color: #fff; font-family: inherit;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35); transition: all 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .rn-switch[data-mode="day"] i { color: #ffc107; }
+        .rn-switch[data-mode="night"] { background: rgba(60, 80, 170, 0.3); border-color: rgba(139, 178, 255, 0.5); }
+        .rn-switch[data-mode="night"] i { color: #8bb2ff; }
+        .rn-switch:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(177, 94, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+
+        .rn-tabs {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; padding: 0.35rem; margin-bottom: 0.9rem;
+            border-radius: 18px; background: rgba(8, 4, 18, 0.5); border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        .rn-tab {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem;
+            padding: 0.7rem 0.3rem; border-radius: 14px; border: 1px solid transparent; background: transparent;
+            color: #cbb8e6; font-family: inherit; font-weight: 700; font-size: 0.78rem; line-height: 1.2; text-align: center;
+            cursor: pointer; transition: all 0.25s ease; -webkit-tap-highlight-color: transparent;
+        }
+        .rn-tab i { font-size: 1.15rem; }
+        .rn-tab:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
+        .rn-tab.active {
+            color: #fff; border-color: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(145deg, rgba(177, 94, 255, 0.6), rgba(225, 29, 72, 0.42));
+            box-shadow: 0 6px 20px rgba(177, 94, 255, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        #guiaNumero {
-            color: #e7b66d;
-            font-size: 10px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
+        .rn-stage {
+            position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; max-width: 860px; margin-inline: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: radial-gradient(circle at 50% 40%, rgba(177, 94, 255, 0.38), rgba(10, 4, 20, 0.95) 72%);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), inset 0 0 30px rgba(177, 94, 255, 0.2);
         }
-
-        #guiaTitulo {
-            margin: 10px 0;
-            color: #fff;
-            font-size: 21px;
+        .rn-stage::before {
+            content: "\f06e"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+            position: absolute; inset: 0; display: grid; place-items: center; font-size: 4rem; color: rgba(255, 255, 255, 0.08);
         }
-
-        #guiaTexto {
-            margin: 0;
-            color: #e2e8f0;
-            font-size: 13px;
-            line-height: 1.7;
+        .rn-stage video { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .rn-stage::after {
+            content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: inherit;
+            background: linear-gradient(to top, rgba(10, 4, 20, 0.45), transparent 35%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
-
-        .guiaAcciones {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-top: 17px;
-        }
-
-        .guiaAcciones button {
-            padding: 9px 13px;
-            border: 0;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        #guiaSaltar {
-            color: #cbd5e1;
-            background: transparent;
-        }
-
-        #guiaSiguiente {
-            color: #111827;
-            background: #e7b66d;
-            font-weight: bold;
-        }
-
-        #guiaFlecha {
-            position: absolute;
-            width: 17px;
-            height: 17px;
-            background: rgba(15, 23, 42, .91);
-            border-top: 1px solid rgba(231, 182, 109, .8);
-            border-left: 1px solid rgba(231, 182, 109, .8);
-            transform: rotate(45deg);
-            display: none;
+        .rn-badge {
+            position: absolute; top: 0.7rem; right: 0.7rem; z-index: 3; display: inline-flex; align-items: center;
+            padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px; color: #fff;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3);
             pointer-events: none;
         }
-
-        .guia-destacada {
-            position: relative;
-            z-index: 99998 !important;
-            outline: 2px solid #e7b66d !important;
-            outline-offset: 5px;
-            border-radius: 8px;
-            scroll-margin-top: 100px;
+        .rn-badge.day { background: rgba(255, 193, 7, 0.28); color: #fff3b0; }
+        .rn-badge.night { background: rgba(30, 50, 120, 0.5); color: #b9d0ff; }
+        .rn-desc {
+            margin-top: 0.9rem; padding: 0.9rem 1rem; border-radius: 16px; color: #ddd2ee; font-size: 0.9rem; line-height: 1.65;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-left: 3px solid #e11d48;
+        }
+        @media (min-width: 700px) {
+            .rn-demo { padding: 1.4rem; }
+            .rn-tab { flex-direction: row; gap: 0.6rem; font-size: 0.92rem; padding: 0.8rem 0.6rem; }
         }
 
-        @keyframes guiaEntrada {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* seis caminos (siempre visibles) */
+        .sp-wrap { margin-top: 2.4rem; }
+        .sp-stage { position: relative; margin-top: 1.1rem; }
+        .sp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+        .sp-card { display: flex; flex-direction: column; transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease; }
+        .sp-card:hover {
+            transform: translateY(-5px); border-color: rgba(255, 150, 190, 0.55);
+            box-shadow: 0 16px 40px rgba(177, 94, 255, 0.35), 0 0 0 1px rgba(225, 29, 72, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
+        .sp-img { position: relative; aspect-ratio: 3 / 2; background: #000; overflow: hidden; }
+        .sp-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+        .sp-card:hover .sp-img img { transform: scale(1.06); }
+        .sp-img::after {
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(to top, rgba(12, 5, 24, 0.92) 0%, rgba(60, 15, 100, 0.25) 45%, transparent 72%);
+        }
+        .sp-num {
+            position: absolute; top: 10px; left: 10px; z-index: 2; width: 30px; height: 30px; border-radius: 50%;
+            display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: #fff;
+            background: var(--rn-grad); border: 1px solid rgba(255, 255, 255, 0.45); box-shadow: 0 4px 12px rgba(177, 94, 255, 0.5);
+        }
+        .sp-title { position: absolute; left: 0.95rem; right: 0.95rem; bottom: 0.65rem; z-index: 2; }
+        .sp-title h4 { margin: 0; color: #fff; font-size: 1.08rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); }
+        .sp-title small { display: block; color: #e9c9ff; font-weight: 600; font-size: 0.74rem; margin-top: 2px; letter-spacing: 0.3px; }
+        .sp-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .sp-body p { margin: 0; color: #d6cbe8; font-size: 0.86rem; line-height: 1.55; }
+        .sp-sub { color: #ff8fa8; font-size: 0.7rem; font-weight: 800; letter-spacing: 1.3px; margin-top: 0.15rem; }
+        .sp-body ul { margin: 0; padding-left: 1.1rem; color: #ece3f7; font-size: 0.84rem; line-height: 1.55; }
+        .sp-body li::marker { color: #b15eff; }
+
+        .sp-card.pre { opacity: 0; }
+        .sp-card.reveal { animation: spReveal 0.7s ease both; animation-delay: var(--d, 0s); }
+        @keyframes spReveal { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+        .sp-card.summoned { animation: spSummon 0.9s cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: var(--d, 0s); border-color: rgba(255, 150, 190, 0.6); box-shadow: 0 0 28px rgba(177, 94, 255, 0.55), 0 0 14px rgba(225, 29, 72, 0.3); }
+        @keyframes spSummon {
+            0% { opacity: 0.1; transform: scale(0.6) translateY(30px); filter: brightness(3) blur(6px); }
+            60% { opacity: 1; transform: scale(1.05); filter: brightness(1.6) blur(0); }
+            100% { opacity: 1; transform: none; filter: none; }
+        }
+        .sp-flash { position: absolute; inset: -10px; z-index: 5; pointer-events: none; opacity: 0; border-radius: 24px; background: radial-gradient(circle, rgba(177, 94, 255, 0.7), rgba(225, 29, 72, 0.25) 55%, transparent 75%); }
+        .sp-flash.go { animation: spFlash 0.9s ease; }
+        @keyframes spFlash { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+
+        .sp-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1.3rem; padding: 0.95rem 1.2rem; margin-top: 1.2rem; }
+        .sp-hint { display: flex; align-items: center; gap: 0.55rem; color: #ddd2ee; font-size: 0.88rem; }
+        .sp-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0.65rem 1.2rem; border-radius: 999px; cursor: pointer;
+            font-family: inherit; font-weight: 800; font-size: 0.86rem; color: #fff; border: 1px solid rgba(255, 255, 255, 0.35);
+            background: var(--rn-grad); box-shadow: 0 6px 20px rgba(177, 94, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            transition: all 0.25s ease; -webkit-tap-highlight-color: transparent;
+        }
+        .sp-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(225, 29, 72, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+        .sp-status { margin-left: auto; font-size: 0.75rem; font-weight: 800; letter-spacing: 1.2px; color: #a99bc2; }
+        .sp-status.on { color: #f0c8ff; text-shadow: 0 0 10px #b15eff; }
+
+        @media (max-width: 980px) {
+            .sp-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 760px) {
+            .rn-eyes { grid-template-columns: 1fr; text-align: center; padding: 1.3rem; }
+            .rn-methods { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 620px) {
+            #rinnegan.rinnegan-panel { padding: 1.1rem; border-radius: 22px; }
+            #rinnegan.rinnegan-panel { --rn-red: calc(18px + clamp(170px, 31vw, 360px) + 20px); }
+            #rinnegan .panel-heading { gap: 1rem; margin-bottom: 1.2rem; }
+            .rinnegan-banner { margin-bottom: 1rem; }
+            .rinnegan-banner-label { font-size: 0.62rem; letter-spacing: 1px; left: 0.7rem; bottom: 0.7rem; }
+            .rn-sub { font-size: 1.05rem; margin-top: 1.8rem; }
+            .sp-grid { grid-template-columns: 1fr; }
+            .sp-bar { flex-direction: column; align-items: stretch; text-align: left; }
+            .sp-status { margin-left: 0; text-align: center; }
+            .sp-btn { width: 100%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .sp-card.reveal, .sp-card.summoned { animation: none !important; }
+        }
+
 
         /* ==========================================
            MINIJUEGOS: EXTRACCIÓN Y CORTE OCULAR
@@ -1100,7 +1305,354 @@
             .ex-hud { grid-template-columns: 1fr; }
             .ex-scene { min-height: 520px; }
         }
+    
+        /* ==========================================================================
+           DŌJUTSUS FX · estilo "liquid glass" (igual que el Rinnegan)
+           Imágenes necesarias en img/: uchihas.jpg, susanoo_bg.jpg, hyuga_bg.jpg
+           ========================================================================== */
+
+        /* ---------- PANEL BASE ---------- */
+        .fx {
+            --fx-pad: 3rem;
+            --fx-h: clamp(240px, 42vw, 460px);
+            --fx-rgb: 177, 94, 255;
+            --fx-base: #08040f;
+            --fx-zone: #1c0c33;
+            --fx-accent: #d8b4fe;
+
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            padding: var(--fx-pad);
+            background-color: var(--fx-base);
+            /* zona de color (como el rojo del Rinnegan) bajo el banner, que se apaga hacia el negro */
+            background-image:
+                radial-gradient(60% 520px at 94% 70%, rgba(var(--fx-rgb), 0.14), transparent 70%),
+                radial-gradient(55% 520px at 4% 92%, rgba(var(--fx-rgb), 0.10), transparent 70%),
+                linear-gradient(180deg, var(--fx-zone) 0, var(--fx-zone) calc(var(--fx-h) * 0.55), var(--fx-base) calc(var(--fx-h) + 380px));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow:
+                0 22px 60px rgba(var(--fx-rgb), 0.26),
+                0 0 0 1px rgba(var(--fx-rgb), 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.28),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+                inset 0 0 50px rgba(var(--fx-rgb), 0.07);
+        }
+        .fx:hover {
+            border-color: rgba(var(--fx-rgb), 0.55);
+            box-shadow:
+                0 26px 70px rgba(var(--fx-rgb), 0.34),
+                0 0 0 1px rgba(var(--fx-rgb), 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.32),
+                inset 0 0 50px rgba(var(--fx-rgb), 0.09);
+        }
+        .fx > *:not(.fx-banner) { position: relative; z-index: 1; }
+
+        /* eco de la imagen como fondo de todo el panel (tintado con el color del dōjutsu) */
+        .fx::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            background-size: min(1000px, 150%) auto;
+            opacity: var(--fx-ghost, 0.14);
+            filter: var(--fx-ghost-filter, none);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
+        }
+        #byakugan::before { background-image: url("img/hyuga_bg.jpg"); }
+        #sharingan::before,
+        #mangekyo::before,
+        #extraccion::before,
+        #eternal::before { background-image: url("img/uchihas.jpg"); }
+        #susanoo::before { background-image: url("img/susanoo_bg.jpg"); }
+
+        /* ---------- TEMAS ---------- */
+        .fx-red {
+            --fx-rgb: 255, 59, 75;
+            --fx-base: #0b0407;
+            --fx-zone: #8f0722;
+            --fx-accent: #ff8fa8;
+            --fx-banner-bg: radial-gradient(80% 110% at 50% 12%, #e11d3c 0%, #a8062a 50%, #8f0722 100%);
+            --fx-blend: multiply;                       /* el blanco de la imagen toma el rojo del fondo */
+            --fx-filter: contrast(1.12) brightness(1.04);
+            --fx-ghost: 0.15;
+            --fx-ghost-filter: invert(1) sepia(1) saturate(6) hue-rotate(-45deg);
+        }
+        .fx-purple {
+            --fx-rgb: 177, 94, 255;
+            --fx-base: #0a0514;
+            --fx-zone: #1c0c33;
+            --fx-accent: #d8b4fe;
+            --fx-banner-bg: #1c0c33;
+            --fx-blend: normal;
+            --fx-pos: center 32%;
+            --fx-ghost: 0.14;
+        }
+        .fx-blue {
+            --fx-rgb: 0, 210, 255;
+            --fx-base: #02070c;
+            --fx-zone: #04141d;
+            --fx-accent: #7de6ff;
+            --fx-banner-bg: #04141d;
+            --fx-blend: screen;                         /* el negro desaparece, solo quedan las líneas */
+            --fx-tint: #3fdcff;                         /* las líneas blancas se vuelven celestes */
+            --fx-tint-blend: multiply;
+            --fx-pos: center 28%;
+            --fx-ghost: 0.2;
+            --fx-ghost-filter: sepia(1) saturate(6) hue-rotate(150deg);
+        }
+
+        /* ---------- BANNER FUNDIDO ---------- */
+        .fx-banner {
+            position: relative;
+            z-index: 0;
+            isolation: isolate;
+            overflow: hidden;
+            height: var(--fx-h);
+            margin: calc(-1 * var(--fx-pad)) calc(-1 * var(--fx-pad)) -3.2rem;
+            background: var(--fx-banner-bg, #000);
+            -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 50%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0, #000 50%, transparent 100%);
+        }
+        .fx-banner img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: var(--fx-pos, center 20%);
+            mix-blend-mode: var(--fx-blend, normal);
+            filter: var(--fx-filter, none);
+            transform: scale(var(--fx-zoom, 1));
+            transform-origin: var(--fx-origin, center);
+            user-select: none;
+            pointer-events: none;
+        }
+        /* viñeta: los bordes se funden con el color de la zona */
+        .fx-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                linear-gradient(to right, var(--fx-zone) 0, transparent 14%, transparent 86%, var(--fx-zone) 100%),
+                linear-gradient(to bottom, var(--fx-zone) 0, transparent 14%);
+        }
+        /* tinte (solo Byakugan) */
+        .fx-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: var(--fx-tint, transparent);
+            mix-blend-mode: var(--fx-tint-blend, normal);
+        }
+
+        .fx-label {
+            position: absolute;
+            top: 1rem;
+            left: calc(var(--fx-pad) * 0.6);
+            z-index: 3;
+            max-width: calc(100% - 2rem);
+            padding: 0.45rem 0.95rem;
+            border-radius: 999px;
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            font-size: 0.72rem;
+            background: rgba(10, 6, 20, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        .fx-label i { color: var(--fx-accent); margin-right: 6px; }
+
+        /* variantes de recorte */
+        .fx-banner.uchiha     { --fx-pos: 50% 14%; }
+        .fx-banner.uchiha-ms  { --fx-pos: 50% 14%; --fx-zoom: 1.55; --fx-origin: 82% 16%; }
+        .fx-banner.uchiha-ems { --fx-pos: 50% 14%; --fx-zoom: 1.55; --fx-origin: 16% 16%; }
+        .fx-banner.susanoo    { --fx-pos: 55% 30%; }
+        .fx-banner.hyuga      { --fx-pos: center 30%; }
+
+        /* ---------- TEXTO SOBRE EL BANNER ---------- */
+        .fx .panel-heading h2 {
+            background: linear-gradient(90deg, #ffffff, #f6ecff 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.7));
+        }
+        .fx .panel-heading p,
+        .fx .panel-number { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75); }
+        .fx .panel-number { color: var(--fx-accent) !important; }
+        .fx .panel-description { color: #ece3f7; }
+        .fx .panel-icon {
+            background: linear-gradient(145deg, rgba(var(--fx-rgb), 0.32), rgba(255, 255, 255, 0.06));
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 22px rgba(var(--fx-rgb), 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+        .fx .subheading { color: #fff; }
+
+        /* ---------- TARJETA DE LOS OJOS ANIMADOS ---------- */
+        .fx-eyes {
+            display: grid;
+            grid-template-columns: 1fr minmax(240px, 340px);
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem 1.7rem;
+            margin: 1.6rem 0 0.5rem;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+        .fx-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--fx-accent);
+        }
+        .fx-eyes h3 { margin: 0.5rem 0; color: #fff; font-size: 1.3rem; }
+        .fx-eyes p { margin: 0; color: #d6cbe8; font-size: 0.93rem; line-height: 1.65; }
+        .fx-eyes-host { display: flex; justify-content: center; align-items: center; min-height: 130px; }
+
+        /* ---------- COMPONENTES EN CRISTAL LÍQUIDO ---------- */
+        .fx .fx-eyes,
+        .fx .definition-box,
+        .fx .info-card,
+        .fx .step-card,
+        .fx .eye-item,
+        .fx .byakugan-ability-box,
+        .fx .ten-seigan-box,
+        .fx .ui-shot,
+        .fx .susanoo-video-box {
+            position: relative;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04) 45%, rgba(var(--fx-rgb), 0.11));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(18px) saturate(170%);
+            -webkit-backdrop-filter: blur(18px) saturate(170%);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35),
+                inset 0 -12px 26px rgba(var(--fx-rgb), 0.08);
+        }
+        .fx .definition-box,
+        .fx .info-card,
+        .fx .ten-seigan-box { border-radius: 20px; }
+        .fx .definition-box p,
+        .fx .info-card p,
+        .fx .step-content p,
+        .fx .byakugan-ability-box p,
+        .fx .ten-seigan-box p { color: #d6cbe8; }
+
+        .fx .step-card:hover,
+        .fx .eye-item:hover,
+        .fx .info-card:hover {
+            border-color: rgba(var(--fx-rgb), 0.65);
+            box-shadow: 0 16px 40px rgba(var(--fx-rgb), 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        .fx .step-card.highlight-step {
+            background: linear-gradient(145deg, rgba(255, 90, 105, 0.22), rgba(255, 255, 255, 0.04) 50%, rgba(120, 10, 30, 0.3));
+            border-color: rgba(255, 110, 125, 0.55);
+        }
+
+        .fx-blue .byakugan-ability-box.interactive {
+            background: linear-gradient(145deg, rgba(0, 210, 255, 0.28), rgba(255, 255, 255, 0.05) 55%, rgba(0, 120, 200, 0.18));
+            border-color: rgba(125, 230, 255, 0.7);
+            box-shadow: 0 0 22px rgba(0, 210, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        .fx-blue .bya-box {
+            background: linear-gradient(145deg, rgba(10, 28, 42, 0.78), rgba(4, 8, 14, 0.85));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .fx .mg-box,
+        .fx .susanoo-gui-container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(8, 9, 14, 0.66) 45%, rgba(var(--fx-rgb), 0.14));
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+        }
+        .fx .mg-box { border-color: rgba(255, 255, 255, 0.2); border-radius: 18px; }
+        .fx .susanoo-gui-container { border-radius: 18px; }
+
+        /* ==========================================================================
+           ADAPTACIÓN A CELULAR
+           ========================================================================== */
+        .jutsu-page { overflow-x: clip; }
+        .jutsu-panel img, .jutsu-panel video, .jutsu-panel canvas { max-width: 100%; }
+
+        @media (max-width: 850px) {
+            .fx-eyes { grid-template-columns: 1fr; text-align: center; padding: 1.3rem; gap: 1rem; }
+            .fx-eyes-host { min-height: 120px; }
+            .ex-title { flex-wrap: wrap; gap: 4px 12px; font-size: 12px; }
+        }
+
+        @media (max-width: 768px) {
+            .fx { --fx-pad: 1.4rem; --fx-h: clamp(210px, 62vw, 340px); border-radius: 22px; }
+            .jutsu-panel:not(.fx) { padding: 1.4rem; }
+            .fx-banner { margin-bottom: -2.4rem; }
+            .fx-label { font-size: 0.62rem; letter-spacing: 1px; left: 1rem; top: 0.8rem; }
+            .fx::before { background-size: min(900px, 170%) auto; }
+
+            /* menú de secciones: chips en varias filas en vez de una columna larguísima */
+            .category-nav { flex-direction: row; justify-content: center; gap: 0.5rem; margin: 1.5rem 0 2rem; }
+            .category-nav a { padding: 0.55rem 0.95rem; font-size: 0.82rem; box-shadow: none; }
+
+            .panel-heading { gap: 1rem; margin-bottom: 1.4rem; }
+            .panel-icon { width: 52px; height: 52px; font-size: 1.4rem; border-radius: 15px; flex-shrink: 0; }
+            .control-key-badge-wrap { flex-wrap: wrap; gap: 0.6rem; }
+            .control-row-card { padding: 1rem; }
+            .byakugan-ability-box h4 { font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .fx { --fx-pad: 1.1rem; --fx-h: clamp(190px, 64vw, 280px); }
+            .jutsu-panel:not(.fx) { padding: 1.1rem; }
+            .fx-banner { margin-bottom: -2rem; }
+            .panel-icon { width: 46px; height: 46px; font-size: 1.2rem; }
+            .panel-heading h2 { font-size: 1.45rem; }
+            .panel-heading p { font-size: 12px; }
+            .panel-description { font-size: 13px; line-height: 1.8; }
+            .fx-eyes h3 { font-size: 1.15rem; }
+            .fx-eyes p { font-size: 0.88rem; }
+            .step-image { height: 140px; }
+            .mangekyo-gallery { gap: 10px; }
+            .susanoo-gui-container { padding: 12px; }
+            .gui-viewport { height: 240px; }
+            .gui-right-panel { padding: 12px; }
+            .mg-box { padding: 12px; }
+            .ex-scene { min-height: 560px; }
+            .ten-seigan-box { padding: 16px; }
+            .bya-box { padding: 18px 12px 14px; }
+        }
+
+        /* ===== OPTIMIZACIÓN MÓVIL (gana a las reglas anteriores) ===== */
+        @media (max-width: 768px), (hover: none) {
+            *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+            .topbar { background: rgba(9, 10, 15, 0.94) !important; }
+            .jutsu-panel:not(.fx) { background: rgba(15, 18, 30, 0.88); box-shadow: 0 4px 18px rgba(0,0,0,.35); }
+            .info-card, .rinnegan-card { background: rgba(255,255,255,0.045); }
+            .category-nav a { background: rgba(20, 24, 40, 0.9); }
+            .jutsu-panel:hover, .info-card:hover, .rinnegan-card:hover { transform: none; }
+            body { background-attachment: scroll; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+        }
     </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 
@@ -1152,14 +1704,25 @@
     <div class="page-overlay" id="pageOverlay"></div>
 
     <aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+    <script>
+    /* Dock móvil: pinta la barra al instante desde la caché de sesión y activa las
+       transiciones suaves entre páginas. Pégalo igual en TODAS las páginas, justo
+       después del <aside id="sidebar">. */
+    (function(){try{var d=document.documentElement,s=sessionStorage,a=document.getElementById("sidebar");
+    if(s.getItem("nydoDock"))d.classList.add("dock-warm");
+    var c=s.getItem("nydoSB");if(c&&a&&!a.firstElementChild)a.innerHTML=c;
+    if("onpagereveal" in window)d.classList.add("vt-ok");}catch(e){}})();
+    </script>
 
     <main class="jutsu-page">
 
         <!-- BANNER DE INICIO -->
-        <section class="jutsu-banner dojutsu-banner-custom" id="inicio">
-            <img src="img/badojutsu.jpeg" alt="Fondo Dojutsus" class="banner-bg-img">
+        <section class="jutsu-banner dojutsu-banner-custom" id="inicio" style="background-image:url(img/badojutsu.jpeg)">
+            <video class="banner-video" autoplay muted loop playsinline preload="metadata"
+                poster="vid/bannerDoju.mp4" aria-hidden="true" tabindex="-1"
+                data-src="vid/bannerDoju.mp4" data-src-movil="vid/bannerDoju-movil.mp4"></video>
             <div class="banner-overlay"></div>
-
+            <div class="banner-glow" aria-hidden="true"></div>
             <div class="banner-content">
                 <span class="jutsu-eyebrow">
                     <i class="fa-solid fa-eye"></i>
@@ -1275,7 +1838,11 @@
             </nav>
 
             <!-- 1. BYAKUGAN & TENSEIGAN -->
-            <article class="jutsu-panel" id="byakugan">
+            <article class="jutsu-panel fx fx-blue" id="byakugan">
+                <div class="fx-banner hyuga" aria-hidden="true">
+                    <img src="img/hyuga_bg.jpg" alt="" loading="lazy">
+                    <span class="fx-label"><i class="fa-solid fa-eye"></i> BYAKUGAN · CLAN HYŪGA</span>
+                </div>
                 <div class="panel-heading">
                     <div class="panel-icon silver-icon"><i class="fa-solid fa-eye"></i></div>
                     <div>
@@ -1288,6 +1855,15 @@
                 <p class="panel-description">
                     El Byakugan es el Kekkei Genkai nativo del clan Hyūga. Otorga visión periférica casi total de 360°, percepción de bloques y entidades a través de paredes (Rayos X) y la capacidad de visualizar el sistema circulatorio de chakra del objetivo.
                 </p>
+
+                <div class="fx-eyes">
+                    <div class="fx-eyes-copy">
+                        <span class="fx-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo del Byakugan</h3>
+                        <p>Mira cómo un ojo normal despierta: las venas de chakra se hinchan alrededor de la sien y la pupila se vuelve blanca.</p>
+                    </div>
+                    <div class="fx-eyes-host" id="byakuganEyes"></div>
+                </div>
 
                 <h3 class="subheading" style="color: #fff; margin-top: 1.5rem;">Habilidades Principales del Byakugan</h3>
                 <p class="small-description">
@@ -1329,14 +1905,22 @@
                 <!-- BLOQUE EVOLUTIVO AL TENSEIGAN -->
                 <div class="ten-seigan-box">
                     <h3><i class="fa-solid fa-globe"></i> Evolución Legendaria: Tenseigan</h3>
+                    <p style="background: rgba(0, 210, 255, 0.12); border-left: 4px solid var(--blue-hyuga); padding: 12px 16px; border-radius: 0 12px 12px 0; margin-bottom: 12px; color: #f1f5f9;">
+                        <i class="fa-solid fa-gem" style="color: var(--blue-hyuga); margin-right: 8px;"></i>
+                        <strong>Requisitos para obtener el Tenseigan:</strong> debes pertenecer al <strong>clan Hyūga</strong> y consumir la <strong>Fruta del Chakra</strong>.
+                    </p>
                     <p>
-                        Al combinar la sangre pura del clan Hyūga con el chakra de los miembros del clan Ōtsutsuki dentro del juego, el Byakugan puede evolucionar y despertar el <strong>Tenseigan</strong> (Ojo de la Reencarnación). Este estadio supremo otorga un manto de chakra verde esmeralda brillante, la capacidad de levitar libremente por el mapa, ejecutar esferas de búsqueda de la verdad (Gudōdama) y desatar un poder destructivo equivalente al Rinnegan.
+                        Al cumplir ambos requisitos, el Byakugan evoluciona y despierta el <strong>Tenseigan</strong> (Ojo de la Reencarnación). Este estadio supremo otorga un manto de chakra verde esmeralda brillante, la capacidad de levitar libremente por el mapa, ejecutar esferas de búsqueda de la verdad (Gudōdama) y desatar un poder destructivo equivalente al Rinnegan.
                     </p>
                 </div>
             </article>
 
             <!-- 2. SHARINGAN -->
-            <article class="jutsu-panel" id="sharingan">
+            <article class="jutsu-panel fx fx-red" id="sharingan">
+                <div class="fx-banner uchiha" aria-hidden="true">
+                    <img src="img/uchihas.jpg" alt="" loading="lazy">
+                    <span class="fx-label"><i class="fa-solid fa-eye"></i> SHARINGAN · CLAN UCHIHA</span>
+                </div>
                 <div class="panel-heading">
                     <div class="panel-icon red-icon"><i class="fa-solid fa-eye"></i></div>
                     <div>
@@ -1350,6 +1934,15 @@
                     El Sharingan se despierta mediante la experiencia en combate. Otorga mayor velocidad de reacción, capacidad para anticipar movimientos enemigos y ejecutar Genjutsus básicos.
                 </p>
 
+                <div class="fx-eyes">
+                    <div class="fx-eyes-copy">
+                        <span class="fx-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo del Sharingan</h3>
+                        <p>Observa cómo un ojo común se enciende en rojo y despierta sus tres tomoes.</p>
+                    </div>
+                    <div class="fx-eyes-host" id="sharinganEyes"></div>
+                </div>
+
                 <div class="definition-box">
                     <span class="definition-label">ETAPAS DE DESARROLLO (TOMOES)</span>
                     <p>
@@ -1359,7 +1952,11 @@
             </article>
 
             <!-- 3. MANGEKYO SHARINGAN -->
-            <article class="jutsu-panel" id="mangekyo">
+            <article class="jutsu-panel fx fx-red" id="mangekyo">
+                <div class="fx-banner uchiha-ms" aria-hidden="true">
+                    <img src="img/uchihas.jpg" alt="" loading="lazy">
+                    <span class="fx-label"><i class="fa-solid fa-biohazard"></i> MANGEKYŌ SHARINGAN</span>
+                </div>
                 <div class="panel-heading">
                     <div class="panel-icon red-icon"><i class="fa-solid fa-biohazard"></i></div>
                     <div>
@@ -1372,6 +1969,15 @@
                 <p class="panel-description">
                     Una forma avanzada del Sharingan que otorga habilidades divinas como Susanoo, Amaterasu o Kamui. Sin embargo, su uso prolongado deteriora progresivamente la vista del shinobi en el mod.
                 </p>
+
+                <div class="fx-eyes">
+                    <div class="fx-eyes-copy">
+                        <span class="fx-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo del Mangekyō</h3>
+                        <p>El Sharingan de tres tomoes evoluciona al Mangekyō: un patrón nuevo, único y devastador.</p>
+                    </div>
+                    <div class="fx-eyes-host" id="mangekyoEyes"></div>
+                </div>
 
                 <h3 class="subheading">Variantes de Mangekyō en el Mod</h3>
                 <p class="small-description">
@@ -1444,7 +2050,7 @@
             </article>
 
             <!-- MINIJUEGO 1: EXTRACCIÓN OCULAR (WASD) -->
-            <article class="jutsu-panel" id="extraccion">
+            <article class="jutsu-panel fx fx-red" id="extraccion">
                 <div class="panel-heading">
                     <div class="panel-icon red-icon"><i class="fa-solid fa-hand-back-fist"></i></div>
                     <div>
@@ -1495,7 +2101,11 @@
             </article>
 
             <!-- 4. ETERNAL MANGEKYO SHARINGAN -->
-            <article class="jutsu-panel" id="eternal">
+            <article class="jutsu-panel fx fx-red" id="eternal">
+                <div class="fx-banner uchiha-ems" aria-hidden="true">
+                    <img src="img/uchihas.jpg" alt="" loading="lazy">
+                    <span class="fx-label"><i class="fa-solid fa-infinity"></i> MANGEKYŌ SHARINGAN ETERNO</span>
+                </div>
                 <div class="panel-heading">
                     <div class="panel-icon purple-icon"><i class="fa-solid fa-infinity"></i></div>
                     <div>
@@ -1508,6 +2118,15 @@
                 <p class="panel-description">
                     Al trasplantar los ojos de un familiar cercano que posea el Mangekyō Sharingan, la ceguera provocada por el uso del Mangekyō desaparece por completo, permitiendo el uso infinito de Susanoo y habilidades exclusivas sin desgaste visual.
                 </p>
+
+                <div class="fx-eyes">
+                    <div class="fx-eyes-copy">
+                        <span class="fx-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo Eterno</h3>
+                        <p>Tras el trasplante, el Mangekyō se transforma en su forma Eterna, sin pérdida de visión.</p>
+                    </div>
+                    <div class="fx-eyes-host" id="eternalEyes"></div>
+                </div>
 
                 <div class="info-card">
                     <i class="fa-solid fa-eye"></i>
@@ -1528,7 +2147,11 @@
             </article>
 
             <!-- INTERFAZ SUSANOO SELLO CROMÁTICO -->
-            <article class="jutsu-panel" id="susanoo">
+            <article class="jutsu-panel fx fx-purple" id="susanoo">
+                <div class="fx-banner susanoo" aria-hidden="true">
+                    <img src="img/susanoo_bg.jpg" alt="" loading="lazy">
+                    <span class="fx-label"><i class="fa-solid fa-shield-cat"></i> SUSANOO · ARMADURA DIVINA</span>
+                </div>
                 <div class="panel-heading">
                     <div class="panel-icon purple-icon"><i class="fa-solid fa-shield-cat"></i></div>
                     <div>
@@ -1541,6 +2164,15 @@
                 <p class="panel-description">
                     El Susanoo es un humanoide gigante de chakra que rodea y protege al usuario. Configura el pigmento e identidad cromática de tu avatar en la interfaz oficial del mod.
                 </p>
+
+                <div class="fx-eyes">
+                    <div class="fx-eyes-copy">
+                        <span class="fx-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo que invoca al Susanoo</h3>
+                        <p>El Susanoo nace del Mangekyō Sharingan Eterno: de ahí sale la armadura divina de chakra.</p>
+                    </div>
+                    <div class="fx-eyes-host" id="susanooEyes"></div>
+                </div>
 
                 <div class="susanoo-gui-container" id="susanooBox">
                     <div class="susanoo-gui-header">
@@ -1610,15 +2242,30 @@
                     <div class="susanoo-info-desc" id="susanooDesc" style="margin-top: 15px;">
                         Posee espadas onduladas gemelas y la capacidad de invocar meteoros devastadores en área.
                     </div>
+
+                    <div class="susanoo-video-box">
+                        <h3 class="susanoo-video-title"><i class="fa-solid fa-circle-play"></i> Susanoo en acción</h3>
+                        <div class="bya-video">
+                            <video controls loop playsinline preload="metadata">
+                                <source src="vid/Susanoo.mp4" type="video/mp4">
+                                Tu navegador no soporta video.
+                            </video>
+                        </div>
+                    </div>
                 </div>
             </article>
 
-            <!-- 5. RINNEGAN INTERACTIVO GLASSMORPHISM -->
+            <!-- 5. RINNEGAN · LIQUID GLASS -->
             <article class="jutsu-panel rinnegan-panel" id="rinnegan">
+                <div class="rinnegan-banner">
+                    <img src="img/6_caminos_del_dolor.webp" alt="Los Seis Caminos del Dolor - Rinnegan">
+                    <div class="rinnegan-banner-label"><i class="fa-solid fa-circle-dot"></i> RINNEGAN · LOS SEIS CAMINOS DEL DOLOR</div>
+                </div>
+
                 <div class="panel-heading">
                     <div class="panel-icon purple-icon"><i class="fa-solid fa-circle-dot"></i></div>
                     <div>
-                        <span class="panel-number" style="color: var(--purple-rinnegan);">05 / EL OJO SOBERANO</span>
+                        <span class="panel-number" style="color: #d8b4fe;">05 / EL OJO SOBERANO</span>
                         <h2>Rinnegan</h2>
                         <p>El dōjutsu supremo que gobierna la gravedad, la vida y la muerte.</p>
                     </div>
@@ -1628,90 +2275,105 @@
                     Considerado el ojo sagrado de la creación y la destrucción. En el mod NYDo, el Rinnegan otorga acceso a las técnicas universales del Camino Deva y a la manipulación del espacio-tiempo y la materia.
                 </p>
 
-                <p class="note" style="background: rgba(177, 94, 255, 0.12); border-left: 4px solid var(--purple-rinnegan); padding: 14px 18px; border-radius: 0 12px 12px 0; margin: 1.5rem 0; color: #f1f5f9; backdrop-filter: blur(8px);">
-                    <i class="fa-solid fa-gem" style="color: var(--purple-rinnegan); margin-right: 8px;"></i>
-                    <strong>Método de Obtención:</strong> Para despertar el Rinnegan en el servidor NYDo, debes poseer el <strong>Mangekyō Sharingan Eterno (EMS)</strong> activo y consumir la mítica <strong>Fruta del Chakra</strong>.
-                </p>
+                <div class="rn-eyes lq">
+                    <div class="rn-eyes-copy">
+                        <span class="rn-kicker"><i class="fa-solid fa-eye"></i> EVOLUCIÓN OCULAR</span>
+                        <h3>El ojo del Rinnegan</h3>
+                        <p>Mira cómo el Mangekyō Sharingan Eterno despierta y se transforma en el Rinnegan, el ojo de ondas púrpura concéntricas.</p>
+                    </div>
+                    <div class="rn-eyes-host" id="rinneganEyes"></div>
+                </div>
 
-                <div class="controls-glass-box">
-                    <h3 style="color: #fff; font-size: 1rem; margin: 0 0 0.5rem;"><i class="fa-solid fa-gamepad"></i> Controles del Dōjutsu en NYDo Mod</h3>
-                    <div class="controls-grid">
-                        <div class="control-item">
-                            <kbd>TAB</kbd>
-                            <span>Equipar / Rinnegan</span>
-                        </div>
+                <h3 class="rn-sub"><i class="fa-solid fa-gem"></i> Métodos de Obtención</h3>
+                <p class="rn-note">Existen <strong>2 formas</strong> de conseguir el Rinnegan en el servidor NYDo:</p>
 
-                        <div class="control-item">
-                            <kbd>I</kbd>
-                            <span>Activar / Desactivar Rinnegan</span>
+                <div class="rn-methods">
+                    <div class="rn-method lq">
+                        <span class="rn-tag">FORMA 1</span>
+                        <h3><i class="fa-solid fa-skull"></i> Derrotar a Nagato</h3>
+                        <p>Derrota a <strong>Nagato</strong> en combate. Al vencerlo obtienes sus ojos, el Rinnegan sin importar tu clan, y además te da:</p>
+                        <div class="rn-chips">
+                            <span class="rn-chip"><i class="fa-solid fa-shirt"></i> Bata Akatsuki</span>
+                            <span class="rn-chip"><i class="fa-solid fa-tower-broadcast"></i> Receptor Negro</span>
                         </div>
-
-                        <div class="control-item">
-                            <kbd>K</kbd>
-                            <span>Calibrar Rinnegan</span>
-                        </div>
-
-                        <div class="control-item">
-                            <kbd>ALT IZQ</kbd>
-                            <span>Rueda de Habilidades</span>
-                        </div>
-                        <div class="control-item">
-                            <kbd>V</kbd>
-                            <span>Lanzar / Ejecutar Jutsu</span>
+                    </div>
+                    <div class="rn-method lq">
+                        <span class="rn-tag">FORMA 2</span>
+                        <h3><i class="fa-solid fa-apple-whole"></i> Ser Uchiha y comer la Fruta del Chakra</h3>
+                        <p>Debes ser del <strong>clan Uchiha</strong> y consumir la <strong>Fruta del Chakra</strong>. Te transformas como si fueras <strong>Hagoromo</strong>, el Sabio de los Seis Caminos, y despiertas tu Rinnegan.</p>
+                        <div class="rn-chips">
+                            <span class="rn-chip"><i class="fa-solid fa-yin-yang"></i> Aspecto de Hagoromo</span>
+                            <span class="rn-chip"><i class="fa-solid fa-circle-dot"></i> Rinnegan</span>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="subheading" style="color: #fff; margin-top: 2rem;">Demostración de Habilidades Oculares</h3>
+                <h3 class="rn-sub"><i class="fa-solid fa-wand-sparkles"></i> Demostración de Habilidades Oculares</h3>
 
-                <div class="rinnegan-showcase">
-                    <div class="ability-tabs">
-                        <button class="tab-btn active" onclick="seleccionarHabilidad('shinra', this)">
+                <div class="rn-demo lq">
+                    <div class="rn-demo-head">
+                        <strong class="rn-demo-title" id="abilityTitle">Shinra Tensei (Repulsión Celestial)</strong>
+                        <button class="rn-switch" id="dayNightBtn" type="button" data-mode="day" onclick="toggleModoDiaNoche()" aria-label="Cambiar entre modo día y noche">
+                            <i class="fa-solid fa-sun" id="modeIcon"></i>
+                            <span id="modeText">SUN</span>
+                        </button>
+                    </div>
+
+                    <div class="rn-tabs" role="tablist">
+                        <button class="rn-tab active" type="button" role="tab" aria-selected="true" onclick="seleccionarHabilidad('shinra', this)">
                             <i class="fa-solid fa-burst"></i>
                             <span>Shinra Tensei</span>
                         </button>
-                        <button class="tab-btn" onclick="seleccionarHabilidad('atraccion', this)">
+                        <button class="rn-tab" type="button" role="tab" aria-selected="false" onclick="seleccionarHabilidad('atraccion', this)">
                             <i class="fa-solid fa-magnet"></i>
-                            <span>Atracción Universal</span>
+                            <span>Atracción</span>
                         </button>
-                        <button class="tab-btn" onclick="seleccionarHabilidad('chibaku', this)">
+                        <button class="rn-tab" type="button" role="tab" aria-selected="false" onclick="seleccionarHabilidad('chibaku', this)">
                             <i class="fa-solid fa-meteor"></i>
                             <span>Chibaku Tensei</span>
                         </button>
                     </div>
 
-                    <div class="video-display-box">
-                        <div class="video-header-bar">
-                            <strong id="abilityTitle" style="color: #fff; font-size: 1.05rem;">Shinra Tensei (Repulsión Celestial)</strong>
-                            
-                            <button class="mode-toggle-btn" id="dayNightBtn" onclick="toggleModoDiaNoche()">
-                                <i class="fa-solid fa-sun" id="modeIcon" style="color: #ffc107;"></i>
-                                <span id="modeText">SUN</span>
-                            </button>
-                        </div>
+                    <div class="rn-stage">
+                        <span class="rn-badge day" id="modeBadge">☀️ MODO DÍA</span>
+                        <video id="rinneganVideo" autoplay loop muted playsinline poster="img/rinnegan-poster.jpg">
+                            <source id="videoSource" src="vid/shinraday.mp4" type="video/mp4">
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </div>
 
-                        <div class="video-wrapper">
-                            <span class="mode-indicator-badge day" id="modeBadge">☀️ MODO DÍA</span>
-                            <video id="rinneganVideo" autoplay loop muted playsinline poster="img/rinnegan-poster.jpg">
-                                <source id="videoSource" src="vid/shinraday.mp4" type="video/mp4">
-                                Tu navegador no soporta la reproducción de video.
-                            </video>
-                        </div>
-
-                        <div class="ability-description-text" id="abilityDesc">
-                            Emite una fuerza repulsiva omnidireccional capaz de repeler cualquier proyectil, ataque de chakra, entidad o jugador cercano, destruyendo el entorno alrededor.
-                        </div>
+                    <div class="rn-desc" id="abilityDesc">
+                        Emite una fuerza repulsiva omnidireccional capaz de repeler cualquier proyectil, ataque de chakra, entidad o jugador cercano, destruyendo el entorno alrededor.
                     </div>
                 </div>
 
-                <h3 class="subheading" style="color: #fff; margin-top: 2.5rem;">Técnicas Adicionales de los Seis Caminos</h3>
-                <div class="advanced-elements">
-                    <div><span class="dot storm"></span><strong>Deva</strong><small>Gravedad / Fuerza</small></div>
-                    <div><span class="dot wood"></span><strong>Asura</strong><small>Armamento Mecánico</small></div>
-                    <div><span class="dot lava"></span><strong>Human</strong><small>Extracción de Almas</small></div>
-                    <div><span class="dot boil"></span><strong>Animal</strong><small>Invocaciones Múltiples</small></div>
-                    <div><span class="dot magnet"></span><strong>Preta</strong><small>Absorción de Chakra</small></div>
-                    <div><span class="dot dust"></span><strong>Naraka</strong><small>Rey del Infierno</small></div>
+
+                <div class="sp-bar lq">
+                        <div class="sp-hint">
+                            <span class="kbd-combo"><kbd>SHIFT</kbd>+<kbd>↓</kbd></span> Ver los 6 caminos
+                        </div>
+                        <div class="sp-hint">
+                            <span class="kbd-combo"><kbd>SHIFT</kbd>+<kbd>↑</kbd></span> Invocarlos
+                        </div>
+                        <button class="sp-btn" id="spSummonBtn" type="button"><i class="fa-solid fa-bolt"></i> Invocar</button>
+                        <span class="sp-status" id="spStatus">CAMINOS LISTOS</span>
+                    </div>
+
+
+
+
+                <div class="sp-wrap" id="seisCaminos">
+                    <h3 class="rn-sub"><i class="fa-solid fa-circle-nodes"></i> Los 6 Caminos del Rinnegan</h3>
+                    <p class="rn-lead">
+                        Con el Rinnegan puedes manifestar a los <strong>Seis Caminos del Dolor</strong>, los seis cuerpos que Nagato controlaba con sus varillas receptoras de chakra. Cada Camino tiene su propia habilidad.
+                    </p>
+
+                    <div class="sp-stage">
+                        <div class="sp-flash" id="spFlash"></div>
+                        <div class="sp-grid" id="spGrid"></div>
+                    </div>
+
+                    
                 </div>
             </article>
         </section>
@@ -1727,22 +2389,6 @@
 
     <script src="script.js"></script>
 
-    <!-- GUÍA TRANSPARENTE -->
-    <div id="guiaNube" style="display:none;">
-        <div id="guiaMensaje">
-            <span id="guiaNumero">GUÍA DE DŌJUTSUS</span>
-            <h3 id="guiaTitulo">¡Hola, shinobi!</h3>
-            <p id="guiaTexto">
-                Explora las artes oculares y descubre cómo despertar los ojos legendarios.
-            </p>
-
-            <div class="guiaAcciones">
-                <button id="guiaSaltar" type="button">Saltar</button>
-                <button id="guiaSiguiente" type="button">Siguiente ➜</button>
-            </div>
-        </div>
-        <div id="guiaFlecha"></div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -1769,7 +2415,7 @@
         const MIN_ZOOM = 4.2, MAX_ZOOM = 12;
 
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.25 : 2));
         renderer.setClearColor(0x000000, 0);
 
         const scene = new THREE.Scene();
@@ -2230,9 +2876,15 @@
 
     function seleccionarHabilidad(id, element) {
         habilidadActual = id;
-        
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        if (element) element.classList.add('active');
+
+        document.querySelectorAll('.rn-tab').forEach(btn => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+        });
+        if (element) {
+            element.classList.add('active');
+            element.setAttribute('aria-selected', 'true');
+        }
 
         const info = datosHabilidades[id];
         document.getElementById('abilityTitle').textContent = info.titulo;
@@ -2243,13 +2895,9 @@
 
         if (id === 'shinra') {
             dayNightBtn.style.display = 'inline-flex';
-            badge.style.display = 'block';
-            esModoDia = true; 
-            document.getElementById('modeText').textContent = "SUN";
-            document.getElementById('modeIcon').className = "fa-solid fa-sun";
-            document.getElementById('modeIcon').style.color = "#ffc107";
-            badge.className = "mode-indicator-badge day";
-            badge.textContent = "☀️ MODO DÍA";
+            badge.style.display = 'inline-flex';
+            esModoDia = true;
+            aplicarModo();
         } else {
             dayNightBtn.style.display = 'none';
             badge.style.display = 'none';
@@ -2258,29 +2906,23 @@
         actualizarVideo();
     }
 
-    function toggleModoDiaNoche() {
-        if (habilidadActual !== 'shinra') return;
-        
-        esModoDia = !esModoDia;
-        
-        const btnText = document.getElementById('modeText');
-        const btnIcon = document.getElementById('modeIcon');
+    function aplicarModo() {
+        const btn = document.getElementById('dayNightBtn');
+        const icon = document.getElementById('modeIcon');
+        const text = document.getElementById('modeText');
         const badge = document.getElementById('modeBadge');
 
-        if (esModoDia) {
-            btnText.textContent = "SUN";
-            btnIcon.className = "fa-solid fa-sun";
-            btnIcon.style.color = "#ffc107";
-            badge.className = "mode-indicator-badge day";
-            badge.textContent = "☀️ MODO DÍA";
-        } else {
-            btnText.textContent = "MOON";
-            btnIcon.className = "fa-solid fa-moon";
-            btnIcon.style.color = "#8bb2ff";
-            badge.className = "mode-indicator-badge night";
-            badge.textContent = "🌙 MODO NOCHE";
-        }
+        btn.dataset.mode = esModoDia ? 'day' : 'night';
+        icon.className = esModoDia ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        text.textContent = esModoDia ? 'SUN' : 'MOON';
+        badge.className = 'rn-badge ' + (esModoDia ? 'day' : 'night');
+        badge.textContent = esModoDia ? '☀️ MODO DÍA' : '🌙 MODO NOCHE';
+    }
 
+    function toggleModoDiaNoche() {
+        if (habilidadActual !== 'shinra') return;
+        esModoDia = !esModoDia;
+        aplicarModo();
         actualizarVideo();
     }
 
@@ -2288,233 +2930,113 @@
         const info = datosHabilidades[habilidadActual];
         const videoPlayer = document.getElementById('rinneganVideo');
         const videoSource = document.getElementById('videoSource');
-        
+
         const rutaVideo = (habilidadActual === 'shinra') ? (esModoDia ? info.videoDay : info.videoNight) : info.videoDay;
-        
+
         videoSource.src = rutaVideo;
         videoPlayer.load();
         videoPlayer.play().catch(() => {});
     }
 
-    // GUÍA DE RECORRIDO
-    (() => {
-        const guia = document.getElementById("guiaNube");
-        const titulo = document.getElementById("guiaTitulo");
-        const texto = document.getElementById("guiaTexto");
-        const numero = document.getElementById("guiaNumero");
-        const siguiente = document.getElementById("guiaSiguiente");
-        const saltar = document.getElementById("guiaSaltar");
-        const flecha = document.getElementById("guiaFlecha");
-
-        const CLAVE_GUIA = "NYDo_dojutsus_guia_mostrada";
-
-        const pasos = [
-            {
-                nombre: "BIENVENIDO A NYDo",
-                titulo: "¡Guía de Dōjutsus! 👁️",
-                texto: "Te enseñaré las artes oculares disponibles en el mod. Haz clic en Siguiente.",
-                selector: null
-            },
-            {
-                nombre: "01 / OJOS BLANCOS",
-                titulo: "Byakugan & Tenseigan ⚪",
-                texto: "Conoce las 4 habilidades del Byakugan y su evolución definitiva al Tenseigan.",
-                selector: "#byakugan"
-            },
-            {
-                nombre: "02 / OJOS COPIADORES",
-                titulo: "Sharingan 🔴",
-                texto: "Aprende cómo evoluciona por tomoes y sus capacidades de anticipación.",
-                selector: "#sharingan"
-            },
-            {
-                nombre: "03 / EVOLUCIÓN TRÁGICA",
-                titulo: "Mangekyō Sharingan 💥",
-                texto: "Consulta los pasos exactos para desatar este poder: domesticar un lobo, nombrarlo y presenciar su destino.",
-                selector: "#mangekyo"
-            },
-            {
-                nombre: "04 / LUZ ETERNA",
-                titulo: "Mangekyō Eterno ♾️",
-                texto: "Descubre cómo deshacerte de la ceguera para usar Susanoo sin restricciones.",
-                selector: "#eternal"
-            },
-            {
-                nombre: "05 / MANIFESTACIÓN DIVINA",
-                titulo: "Susanoo 🛡️",
-                texto: "Explora la nueva interfaz del Sello Cromático e interactúa con los botones de Itachi, Obito, Shisui, Madara y Sasuke.",
-                selector: "#susanoo"
-            },
-            {
-                nombre: "06 / EL OJO SOBERANO",
-                titulo: "Rinnegan 🟣",
-                texto: "Explora el poder divino de los Seis Caminos, aprende sus controles y prueba el reproductor interactivo Día/Noche.",
-                selector: "#rinnegan"
-            },
-            {
-                nombre: "RECORRIDO COMPLETADO",
-                titulo: "¡Dominio Ocular Listo!",
-                texto: "Ya conoces todos los Dōjutsus del mod. ¡Disfruta explorando la wiki!",
-                selector: null
-            }
+    </script>
+    <script>
+    /* SEIS CAMINOS DEL RINNEGAN (siempre visibles): Shift+↓ ver, Shift+↑ invocar */
+    (function () {
+        const CAMINOS = [
+            { id: 'deva', n: 1, nombre: 'Deva Path', jp: 'Tendō · Camino de los Dioses', img: 'img/path_deva.jpg',
+              serie: 'El líder de los seis y el cuerpo que más habla. Es el que se enfrenta a Naruto, a Jiraiya y el que arrasa Konoha. Su cuerpo original era el de Yahiko.',
+              hab: ['Shinra Tensei: repulsión celestial (tiene unos 5 segundos de enfriamiento)', 'Banshō Ten\'in: atracción universal', 'Chibaku Tensei: crea un satélite de roca que atrapa a los rivales'] },
+            { id: 'asura', n: 2, nombre: 'Asura Path', jp: 'Shuradō · Camino de los Asura', img: 'img/path_asura.jpg',
+              serie: 'El cuerpo mecánico del grupo, convertido en un arsenal ambulante. Ataca a distancia y de cerca con armamento oculto.',
+              hab: ['Misiles disparados desde brazos y dedos', 'Cuchillas y brazos extensibles', 'Lanzallamas y cuerpo blindado'] },
+            { id: 'human', n: 3, nombre: 'Human Path', jp: 'Ningendō · Camino Humano', img: 'img/path_human.jpg',
+              serie: 'El interrogador. Con la mano en la cabeza del enemigo lee su mente y sus recuerdos, y puede arrancarle el alma.',
+              hab: ['Lectura de mente al tocar la cabeza', 'Extracción de almas (mata al instante)', 'Obtiene información de prisioneros'] },
+            { id: 'animal', n: 4, nombre: 'Animal Path', jp: 'Chikushōdō · Camino Animal', img: 'img/path_animal.jpg',
+              serie: 'El invocador. Llama a criaturas gigantes para atacar y apoyar a los demás caminos en la invasión a Konoha.',
+              hab: ['Invocación de bestias: perro de tres cabezas, rinoceronte, ave, ciempiés, camaleón, cangrejo', 'Invoca sin necesidad de sellos de mano', 'Apoyo en combate con múltiples criaturas'] },
+            { id: 'preta', n: 5, nombre: 'Preta Path', jp: 'Gakidō · Camino de los Espíritus Hambrientos', img: 'img/path_preta.jpg',
+              serie: 'El camino defensivo. Absorbe el chakra de los jutsus enemigos y sirve de escudo para el grupo.',
+              hab: ['Absorción de ninjutsu y chakra con la palma', 'Barrera contra ataques de chakra', 'No puede absorber ataques puramente físicos'] },
+            { id: 'naraka', n: 6, nombre: 'Naraka Path', jp: 'Jigokudō · Camino del Infierno', img: 'img/path_naraka.jpg',
+              serie: 'El juez. Invoca al Rey del Infierno para interrogar: si el enemigo miente, le arranca el alma. También puede revivir a los otros caminos caídos.',
+              hab: ['Invocación del Rey del Infierno', 'Interrogatorio y castigo a los mentirosos', 'Revivir y sanar a los demás caminos', 'Gedō Rinne Tensei: con ella Nagato devolvió la vida a los aldeanos de Konoha'] }
         ];
 
-        let indice = 0;
-        let elementoAnterior = null;
-        let temporizadorPosicion = null;
+        const grid = document.getElementById('spGrid');
+        const wrap = document.getElementById('seisCaminos');
+        const status = document.getElementById('spStatus');
+        const flash = document.getElementById('spFlash');
+        if (!grid || !wrap) return;
 
-        function quitarDestacado() {
-            if (elementoAnterior) {
-                elementoAnterior.classList.remove("guia-destacada");
-                elementoAnterior = null;
-            }
+        const tieneIO = 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+        grid.innerHTML = CAMINOS.map(c => `
+            <article class="sp-card lq${tieneIO ? ' pre' : ''}" data-path="${c.id}">
+                <div class="sp-img">
+                    <img src="${c.img}" alt="${c.nombre}" loading="lazy">
+                    <span class="sp-num">${c.n}</span>
+                    <div class="sp-title"><h4>${c.nombre}</h4><small>${c.jp}</small></div>
+                </div>
+                <div class="sp-body">
+                    <span class="sp-sub">EN LA SERIE</span>
+                    <p>${c.serie}</p>
+                    <span class="sp-sub">HABILIDADES</span>
+                    <ul>${c.hab.map(h => `<li>${h}</li>`).join('')}</ul>
+                </div>
+            </article>`).join('');
+
+        const cards = () => grid.querySelectorAll('.sp-card');
+
+        function setStatus(t, on) { status.textContent = t; status.classList.toggle('on', !!on); }
+
+        function irA() { wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+        function verCaminos() {
+            irA();
+            setStatus('VIENDO LOS 6 CAMINOS', true);
         }
 
-        function posicionar(elemento) {
-            if (!elemento || guia.style.display === "none") return;
-
-            const rect = elemento.getBoundingClientRect();
-            const ancho = guia.offsetWidth;
-            const alto = guia.offsetHeight;
-            const margen = 15;
-
-            let izquierda = rect.left + window.scrollX;
-            let arriba = rect.bottom + window.scrollY + 18;
-
-            if (rect.bottom + alto + 30 > window.innerHeight) {
-                arriba = rect.top + window.scrollY - alto - 18;
-            }
-
-            izquierda = Math.max(
-                window.scrollX + margen,
-                Math.min(
-                    izquierda,
-                    window.scrollX + window.innerWidth - ancho - margen
-                )
-            );
-
-            arriba = Math.max(window.scrollY + margen, arriba);
-
-            guia.style.position = "absolute";
-            guia.style.transform = "none";
-            guia.style.left = izquierda + "px";
-            guia.style.top = arriba + "px";
-
-            flecha.style.display = "block";
-
-            const centroFlecha =
-                rect.left + rect.width / 2 + window.scrollX - izquierda - 8;
-
-            flecha.style.left = Math.max(
-                15,
-                Math.min(centroFlecha, ancho - 32)
-            ) + "px";
-
-            if (arriba > rect.bottom + window.scrollY) {
-                flecha.style.top = (alto - 8) + "px";
-                flecha.style.transform = "rotate(225deg)";
-            } else {
-                flecha.style.top = "-8px";
-                flecha.style.transform = "rotate(45deg)";
-            }
-        }
-
-        function mostrarPaso() {
-            quitarDestacado();
-
-            const paso = pasos[indice];
-
-            titulo.textContent = paso.titulo;
-            texto.textContent = paso.texto;
-            numero.textContent = paso.nombre;
-
-            siguiente.textContent =
-                indice === pasos.length - 1 ? "Terminar ✓" : "Siguiente ➜";
-
-            guia.style.display = "block";
-            flecha.style.display = "none";
-
-            if (paso.selector) {
-                const elemento = document.querySelector(paso.selector);
-
-                if (elemento) {
-                    elementoAnterior = elemento;
-                    elemento.classList.add("guia-destacada");
-
-                    elemento.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                    clearTimeout(temporizadorPosicion);
-
-                    temporizadorPosicion = setTimeout(() => {
-                        if (
-                            guia.style.display !== "none" &&
-                            elementoAnterior === elemento
-                        ) {
-                            posicionar(elemento);
-                        }
-                    }, 450);
-                }
-            } else {
-                guia.style.position = "fixed";
-                guia.style.left = "50%";
-                guia.style.top = "50%";
-                guia.style.transform = "translate(-50%, -50%)";
-            }
-        }
-
-        function finalizarGuia() {
-            try {
-                sessionStorage.setItem(CLAVE_GUIA, "true");
-            } catch (error) {}
-
-            clearTimeout(temporizadorPosicion);
-            quitarDestacado();
-
-            guia.style.display = "none";
-            flecha.style.display = "none";
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+        function invocar() {
+            irA();
+            flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
+            cards().forEach((card, i) => {
+                card.classList.remove('pre', 'reveal', 'summoned'); void card.offsetWidth;
+                card.style.setProperty('--d', (i * 0.12) + 's');
+                card.classList.add('summoned');
             });
+            setStatus('SEIS CAMINOS INVOCADOS', true);
         }
 
-        siguiente.addEventListener("click", () => {
-            if (indice < pasos.length - 1) {
-                indice++;
-                mostrarPaso();
-            } else {
-                finalizarGuia();
-            }
+        /* aparecen en cascada la primera vez que se ven en pantalla */
+        if (tieneIO) {
+            const io = new IntersectionObserver(entries => {
+                if (!entries.some(e => e.isIntersecting)) return;
+                io.disconnect();
+                cards().forEach((card, i) => {
+                    if (!card.classList.contains('pre')) return;
+                    card.style.setProperty('--d', (i * 0.1) + 's');
+                    card.classList.remove('pre');
+                    card.classList.add('reveal');
+                });
+            }, { threshold: 0.08 });
+            io.observe(grid);
+        }
+
+        document.getElementById('spSummonBtn').addEventListener('click', invocar);
+
+        document.addEventListener('keydown', function (e) {
+            const t = e.target || {};
+            const tag = (t.tagName || '').toUpperCase();
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t.isContentEditable) return;
+            if (!e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || e.repeat) return;
+            if (e.key === 'ArrowDown') { e.preventDefault(); verCaminos(); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); invocar(); }
         });
-
-        saltar.addEventListener("click", finalizarGuia);
-
-        window.addEventListener("resize", () => {
-            const paso = pasos[indice];
-
-            if (guia.style.display !== "none" && paso.selector) {
-                const elemento = document.querySelector(paso.selector);
-                if (elemento) posicionar(elemento);
-            }
-        });
-
-        let guiaYaMostrada = false;
-        try {
-            guiaYaMostrada = sessionStorage.getItem(CLAVE_GUIA) === "true";
-        } catch (error) {
-            guiaYaMostrada = false;
-        }
-
-        if (!guiaYaMostrada) {
-            mostrarPaso();
-        }
     })();
     </script>
     <script src="dojutsu-anim.js"></script>
+    <script src="dojutsus-banner.js" defer></script>
 
     <!-- BYAKUGAN: VIDEOS DE 64 PALMAS Y ROTACIÓN (panel en línea) -->
     <script>
@@ -2661,5 +3183,7 @@
         });
     })();
     </script>
+    <script src="translate.js"></script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>
